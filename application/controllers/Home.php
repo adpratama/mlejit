@@ -22,19 +22,35 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('session');
+		$this->load->library('pagination');
 		$this->load->helper('string');
+		$this->load->model('M_Product');
 		$this->load->model('M_Home');
 		$this->load->helper('date');
 	}
+
 	public function index()
 	{
+		$cart_content = $this->cart->contents();
+		$jml_item = 0;
+
+		foreach ($cart_content as $value) {
+			$jml_item = $jml_item + $value['qty'];
+		}
+
 		$data = [
 			'title' => 'Home',
 			'style' => 'layouts/_style',
 			'pages' => 'pages/home/v_home',
 			'script' => 'layouts/_script',
-			'best' => $this->db->order_by('menu_jual', 'DESC')->order_by('menu_nama', 'ASC')->limit(3)->get('v_menu')->result()
+			'best' => $this->M_Product->best(),
+			'testimonial' => $this->M_Home->testimonial(),
+			'cart_content' => $cart_content,
+			'jml_item' => $jml_item,
+			'total' => number_format($this->cart->total())
 		];
+
+		// var_dump($data['testimonial']);exit;
 
 		$this->load->view('index', $data);
 	}

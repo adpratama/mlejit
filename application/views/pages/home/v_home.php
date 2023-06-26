@@ -1,17 +1,17 @@
     <!-- home page slider -->
     <div class="homepage-slider">
         <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-1">
+        <div class="single-homepage-slider homepage-bg-4">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
                         <div class="hero-text">
                             <div class="hero-text-tablecell">
                                 <p class="subtitle">Fresh & Organic</p>
-                                <h1>Delicious Seasonal Fruits</h1>
+                                <h1>Delicious Seasonal Coffee</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Fruit Collection</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
+                                    <a href="<?= base_url('products'); ?>" class="boxed-btn">Our Menus</a>
+                                    <a href="#" class="bordered-btn">Contact Us</a>
                                 </div>
                             </div>
                         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-2">
+        <div class="single-homepage-slider homepage-bg-5">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1 text-center">
@@ -29,8 +29,8 @@
                                 <p class="subtitle">Fresh Everyday</p>
                                 <h1>100% Organic Collection</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Visit Shop</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
+                                    <a href="<?= base_url('products'); ?>" class="boxed-btn">Visit Shop</a>
+                                    <a href="#" class="bordered-btn">Contact Us</a>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-3">
+        <!-- <div class="single-homepage-slider homepage-bg-6">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1 text-right">
@@ -48,20 +48,20 @@
                                 <p class="subtitle">Mega Sale Going On!</p>
                                 <h1>Get December Discount</h1>
                                 <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Visit Shop</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
+                                    <a href="<?= base_url('products'); ?>" class="boxed-btn">Visit Shop</a>
+                                    <a href="#" class="bordered-btn">Contact Us</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- end home page slider -->
 
     <!-- features list section -->
-    <div class="list-section pt-80 pb-80">
+    <!-- <div class="list-section pt-80 pb-80">
         <div class="container">
 
             <div class="row">
@@ -101,7 +101,7 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
     <!-- end features list section -->
 
     <!-- product section -->
@@ -111,151 +111,63 @@
                 <div class="col-lg-8 offset-lg-2 text-center">
                     <div class="section-title">
                         <h3><span class="orange-text">Best</span> Seller</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                        <p>Our best seller menus.</p>
                     </div>
                 </div>
             </div>
+            <?php
+            if (empty($best)) {
+            ?>
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <h3 align="center">The menu is not yet available</h3>
+                </div>
+                <br><br>
+            <?php
+            } else {
+            ?>
+                <div class="row">
+                    <?php
+                    foreach ($best as $b) {
 
-            <div class="row">
+                    ?>
+                        <div class="col-lg-4 col-md-6 text-center">
+                            <?php
 
-
-                <?php
-                foreach ($best as $b) {
-
-                ?>
-                    <div class="col-lg-4 col-md-6 text-center">
-                        <?php
-
-                        echo form_open('order/add');
-                        echo form_hidden('id', $b->menu_id);
-                        echo form_hidden('qty', 1);
-                        echo form_hidden('price', $b->menu_harga);
-                        echo form_hidden('name', $b->menu_nama);
-                        echo form_hidden('redirect_page', str_replace('index.php/', '', current_url())); ?>
-                        <div class="single-product-item">
-                            <div class="product-image">
-                                <a href="product/show/<?= $b->menu_seo ?>"><img src="<?= base_url(); ?>assets/img/menu_folder/<?= $b->menu_foto ?>" alt=""></a>
+                            echo form_open('order/add');
+                            echo form_hidden('id', $b->menu_id);
+                            echo form_hidden('qty', 1);
+                            echo form_hidden('price', $b->menu_harga);
+                            echo form_hidden('name', $b->menu_nama);
+                            echo form_hidden('redirect_page', str_replace('index.php/', '', current_url())); ?>
+                            <div class="single-product-item">
+                                <div class="product-image">
+                                    <a href="product/show/<?= $b->menu_seo ?>"><img src="<?= base_url(); ?>assets/img/menu_folder/<?= $b->menu_foto ?>" alt="" style="width: 300px; height: 250px; overflow: hidden; position: relative"></a>
+                                </div>
+                                <h3><?= $b->menu_nama ?></h3>
+                                <p class="product-price"><span>Per Kg</span> Rp<?= number_format($b->menu_harga, 2, ',', '.') ?> </p>
+                                <button class="cart-btn toastrDefaultSuccess" style="text-transform: capitalize; font-weight: 400; font-family: Poppins, sans-serif; font-size: 14px; border: 0px" id=""><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                             </div>
-                            <h3><?= $b->menu_nama ?></h3>
-                            <p class="product-price"><span>Per Kg</span> Rp<?= number_format($b->menu_harga, 2, ',', '.') ?> </p>
-                            <button class="btn btn-primary toastrDefaultSuccess" id=""><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
 
-                        <?php
-                        echo form_close(); ?>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 text-center">
-                    <a href="<?= base_url('product');?>" class="cart-btn"><i class="fas fa-shopping-cart"></i>Browse Other Menus...</a>
+                            <?php
+                            echo form_close(); ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 text-center">
+                        <a href="<?= base_url('product'); ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i>Browse Other Menus...</a>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <!-- end product section -->
 
-    <!-- cart banner section -->
-    <section class="cart-banner pt-100 pb-100">
-        <div class="container">
-            <div class="row clearfix">
-                <!--Image Column-->
-                <div class="image-column col-lg-6">
-                    <div class="image">
-                        <div class="price-box">
-                            <div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                        <img src="<?= base_url(); ?>assets/frontend/img/a.jpg" alt="">
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-                    <h3><span class="orange-text">Deal</span> of the month</h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter">
-                        <div class="time-countdown clearfix" data-countdown="2020/2/01">
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Days</div>
-                            </div>
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Hours</div>
-                            </div>
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Mins</div>
-                            </div>
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Secs</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="cart.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end cart banner section -->
-
     <!-- testimonail-section -->
-    <div class="testimonail-section mt-150 mb-150">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 text-center">
-                    <div class="testimonial-sliders">
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="<?= base_url(); ?>assets/frontend/img/avaters/avatar1.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Saira Hakim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="<?= base_url(); ?>assets/frontend/img/avaters/avatar2.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>David Niph <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src="<?= base_url(); ?>assets/frontend/img/avaters/avatar3.png" alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Jacob Sikim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- end testimonail-section -->
 
     <!-- advertisement section -->
@@ -264,16 +176,16 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="abt-bg">
-                        <a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                        <a href="https://www.instagram.com/p/Cp4I8fFrxkV/" class="video-play-btn popup-"><i class="fas fa-play"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="abt-text">
-                        <p class="top-sub">Since Year 1999</p>
+                        <p class="top-sub">Since Year 2023</p>
                         <h2>We are <span class="orange-text">Mlejit</span></h2>
-                        <p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-                        <a href="about.html" class="boxed-btn mt-4">know more</a>
+                        <p>Discover a hidden gem within the bustling confines of the airport - Mlejit Kopi, a coffee shop that captures the essence of exotic flavors and transports you to the vibrant world of coffee. Nestled amidst the terminals, Mlejit Kopi invites weary travelers and coffee aficionados to embark on a sensory journey like no other.</p>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p> -->
+                        <a href="<?= base_url('about'); ?>" class="boxed-btn mt-4">know more</a>
                     </div>
                 </div>
             </div>
@@ -282,17 +194,17 @@
     <!-- end advertisement section -->
 
     <!-- shop banner -->
-    <section class="shop-banner">
+    <!-- <section class="shop-banner">
         <div class="container">
             <h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
             <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
             <a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
         </div>
-    </section>
+    </section> -->
     <!-- end shop banner -->
 
     <!-- latest news -->
-    <div class="latest-news pt-150 pb-150">
+    <!-- <div class="latest-news pt-150 pb-150">
         <div class="container">
 
             <div class="row">
@@ -360,5 +272,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- end latest news -->

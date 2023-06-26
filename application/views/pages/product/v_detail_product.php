@@ -19,7 +19,14 @@
 	        <div class="row">
 	            <div class="col-md-5">
 	                <div class="single-product-img">
-	                    <img src="<?= base_url() ?>assets/img/menu_folder/<?= $product_detail['menu_foto'] ?>" alt="">
+                        <?php
+                        if (empty($product_detail["menu_foto"])) {
+                            $menu_foto = "no-image-icon.jpg";
+                        } else {
+                            $menu_foto = "menu_folder/". $product_detail['menu_foto'];
+                        }
+                        ?>
+	                    <img src="<?= base_url() ?>assets/img/<?= $menu_foto ?>" alt="">
 	                </div>
 	            </div>
 	            <div class="col-md-7">
@@ -71,8 +78,6 @@
             </div>
 
             <div class="row">
-
-
                 <?php
                 foreach ($best as $b) {
 

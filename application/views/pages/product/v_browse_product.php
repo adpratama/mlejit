@@ -30,14 +30,12 @@
             </div>
         </div>
 
-        <div class="row product-lists">
-
-
+        <div class="row col-mt-2">
             <?php
             foreach ($product as $b) {
 
             ?>
-                <div class="col-lg-4 col-md-6 text-center">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 text-center">
                     <?php
 
                     echo form_open('order/add');
@@ -48,11 +46,18 @@
                     echo form_hidden('redirect_page', str_replace('index.php/', '', current_url())); ?>
                     <div class="single-product-item">
                         <div class="product-image">
-                        <a href="product/show/<?= $b->menu_seo ?>"><img src="<?= base_url(); ?>assets/img/menu_folder/<?= $b->menu_foto ?>" alt=""></a>
+                            <?php
+                            if (empty($b->menu_foto)) {
+                                $menu_foto = "no-image-icon.jpg";
+                            } else {
+                                $menu_foto = "menu_folder/" . $b->menu_foto;
+                            }
+                            ?>
+                            <a href="<?= base_url('product/show/' . $b->menu_seo) ?>"><img src="<?= base_url(); ?>assets/img/<?= $menu_foto ?>" alt="" width="300" height="200"></a>
                         </div>
                         <h3><?= $b->menu_nama ?></h3>
                         <p class="product-price"><span>Per item</span> Rp<?= number_format($b->menu_harga, 2, ',', '.') ?></p>
-                        <button class="btn btn-primary toastrDefaultSuccess" id=""><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="cart-btn toastrDefaultSuccess" style="text-transform: capitalize; font-weight: 400; font-family: Poppins, sans-serif; font-size: 14px; border: 0px" id=""><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                     </div>
 
                     <?php
@@ -63,19 +68,11 @@
             ?>
         </div>
 
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-lg-12 text-center">
-                <div class="pagination-wrap">
-                    <ul>
-                        <li><a href="#">Prev</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a class="active" href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                </div>
+                <?= $this->pagination->create_links(); ?>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
 <!-- end products -->

@@ -19,8 +19,8 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="cart-table-wrap">
-                    
-                    <?php echo form_open('order/add'); ?>
+
+                    <?php echo form_open('order/update'); ?>
                     <table class="cart-table">
                         <thead class="cart-table-head">
                             <tr class="table-head-row">
@@ -34,28 +34,24 @@
                         </thead>
                         <tbody>
                             <?php
-                            $item_order = $this->cart->contents();
-                            $jml_item = 0;
 
-                            foreach ($item_order as $key => $value) {
-                                $jml_item = $jml_item + $value['qty'];
-                            }
                             $i = 1;
 
-                            foreach ($item_order as $item) {
+                            foreach ($cart_content as $item) {
                                 $id_gambar = $item['id'];
-                                $image_order = $this->db->select('menu_foto')->where('menu_id', $id_gambar)->get('v_menu')->row();
-                                // $image_order = $this->db->select('menu_foto')->from('v_menu')->where('menu_id', $id_gambar)->get()->return();
 
-                                $gambar = $image_order->menu_foto;
-                                ?>
+                                $image_order = $this->M_Product->product_image($id_gambar);
+
+                                $gambar = $image_order->menu_foto; ?>
                                 <tr class="table-body-row">
                                     <td class="product-image"><img src="<?= base_url(); ?>assets/img/menu_folder/<?= $gambar ?>" alt=""></td>
-                                    <td class=""><?= $item['name'] ?></td>
+                                    <td align="left">
+                                        <a href="<?= base_url('product/show' . $id_gambar) ?>" class="read-more-btn"><?= $item['name'] ?></a>
+                                        </td>
                                     <td class="product-price right">Rp<?= number_format($item['price'], 2, ',', '.') ?></td>
                                     <td class="product-quantity right">
-                                        <?php 
-                                        echo 
+                                        <?php
+                                        echo
                                         form_input(array(
                                             'name' => $i . '[qty]',
                                             'value' => $item['qty'],
@@ -63,24 +59,35 @@
                                             'size' => '5',
                                             'type' => 'number',
                                             'class' => 'center'
-                                        )); ?>    
+                                        )); ?>
                                     </td>
                                     <td class="product-total right">Rp<?= number_format($item['subtotal'], 2, ',', '.') ?></td>
-                                    <td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
+                                    <td class="product-remove">
+                                        <a href="<?= base_url('order/delete/' . $item['rowid']) ?>">
+                                            <i class="far fa-window-close"></i>
+                                        </a>
+                                    </td>
                                 </tr>
-                                <?php
+                            <?php
                                 $i++;
                             } ?>
                         </tbody>
                     </table>
-                    <div class="cart-buttons right">
+                    <div class="cart-buttons right" style="height: 45px">
                         <?php
-                        echo form_submit('', 'Update cart')
+                        $button = array(
+                            'name' => 'button',
+                            'value' => 'Update cart',
+                            'type' => 'submit',
+                            'class' => 'cart-btn',
+                            'style' => 'text-transform: capitalize; font-weight: 400; font-family: Poppins, sans-serif; font-size: 14px'
+                        );
+                        echo form_submit($button);
                         ?>
-                        <!-- <button type="submit" class="btn btn-primary">Update cart</button> -->
-                        <a href="checkout.html" class="boxed-btn black">Check Out</a>
+                        <!-- <button type="submit" class="cart-btn">Update cart</button> -->
+                        <a href="<?= base_url('order/clear') ?>" class="boxed-btn black">Clear Cart</a>
+                        <a href="<?= base_url('order/checkout') ?>" class="boxed-btn black">Check Out</a>
                     </div>
-                    
                     <?php echo form_close(); ?>
                 </div>
             </div>
@@ -95,40 +102,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $subtotal = $this->cart->total();
-                            $ppn = $subtotal * 0.1;
-                            $grandtotal = $subtotal + $ppn;
-                            ?>
-                            <tr class="total-data">
+                            <!-- <tr class="total-data">
                                 <td><strong>Subtotal: </strong></td>
                                 <td class="right">Rp<?= number_format($subtotal, 2, ',', '.') ?></td>
                             </tr>
                             <tr class="total-data">
                                 <td><strong>PPn: </strong></td>
-                                <td class="right">Rp<?= number_format($ppn, 2, ',', '.')?></td>
-                            </tr>
+                                <td class="right">Rp<?= number_format($ppn, 2, ',', '.') ?></td>
+                            </tr> -->
                             <tr class="total-data">
                                 <td><strong>Total: </strong></td>
-                                <td class="right">Rp<?=number_format($grandtotal, 2, ',', '.')?></td>
+                                <td class="right">Rp<?= number_format($subtotal, 2, ',', '.') ?></td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <div class="cart-buttons">
-                        <a href="cart.html" class="boxed-btn">Update Cart</a>
-                        <a href="checkout.html" class="boxed-btn black">Check Out</a>
-                    </div> -->
                 </div>
-
-                <!-- <div class="coupon-section">
-                    <h3>Apply Coupon</h3>
-                    <div class="coupon-form-wrap">
-                        <form action="index.html">
-                            <p><input type="text" placeholder="Coupon"></p>
-                            <p><input type="submit" value="Apply"></p>
-                        </form>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
