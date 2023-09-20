@@ -54,11 +54,14 @@ class Order extends CI_Controller
     {
         $redirect_page = $this->input->post('redirect_page');
 
+        $item_name = $this->input->post('name');
+        $item_name = str_replace(['(', ')'], '-', $item_name);
+
         $data = array(
             'id'      => $this->input->post('id'),
             'qty'     => $this->input->post('qty'),
             'price'   => $this->input->post('price'),
-            'name'    => $this->input->post('name')
+            'name'    => $item_name
         );
 
         $this->M_Order->add($data);
@@ -176,7 +179,7 @@ class Order extends CI_Controller
             );
 
             $this->M_Product->update_menu_jual($update_qty, $c['id']);
-            
+
             $a[] = $no . '. ' . $c['qty'] . ' ' . $c['name'] . ' @ Rp' . number_format($c['price']) . ',- : Rp' . number_format($c['subtotal']) . ',-';
             $no++;
             $b = array(
@@ -189,7 +192,7 @@ class Order extends CI_Controller
             );
             $this->M_Order->add_transaction_detail($b);
         }
-        
+
         $b = implode('%0a', $a);
 
         $no_whatsapp = "08170107303";
@@ -198,7 +201,7 @@ class Order extends CI_Controller
 
         // message with PPN 10%
         // $msg = '*New Order* %0aNama pemesan: ' . $data['nama_pemesan'] . '%0aEmail: ' . $data['email_pemesan'] . '%0aAlamat: ' . $data['alamat_pemesan'] . '%0aPhone: ' . $data['telepon_pemesan'] . '%0aNotes: ' . $data['notes'] . '%0a%0aPesanan: %0a' . $b . '%0a%0aSubotal: Rp' . number_format($subtotal) . ',-' . '%0a%0aPPn 10%: Rp' . number_format($ppn) . ',-' . '%0a%0a*Total: Rp' . number_format($total) . ',-*';
-        
+
         // $msg2 = 'Halo, kak *' . $data['nama_pemesan'] . '*. Terima kasih sudah order ke Mlejit. Ini daftar pesanan yang Kamu buat:%0a%0aPesanan: %0a' . $b . '%0a%0aSubotal: Rp' . number_format($subtotal) . ',-' . '%0a%0aPPn 10%: Rp' . number_format($ppn) . ',-' . '%0a%0a*Total: Rp' . number_format($total) . ',-*' . '*%0a%0aNotes: ' . $data['notes'] . '%0a%0aPesanan akan segera datang. Mohon ditunggu ya.';
 
         $msg = '*New Order* %0aNama pemesan: ' . $data['nama_pemesan'] . '%0aEmail: ' . $data['email_pemesan'] . '%0aAlamat: ' . $data['alamat_pemesan'] . '%0aPhone: ' . $data['telepon_pemesan'] . '%0aNotes: ' . $data['notes'] . '%0a%0aPesanan: %0a' . $b . '%0a%0a*Subtotal: Rp' . number_format($subtotal) . ',-*';

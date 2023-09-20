@@ -1,4 +1,3 @@
-
 const flashdata = $('.flash-data').data('flashdata');
 
 if (flashdata) {

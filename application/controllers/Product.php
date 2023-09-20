@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Product extends CI_Controller {
+class Product extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -31,7 +32,7 @@ class Product extends CI_Controller {
 
 	public function index()
 	{
-        $config['base_url'] = base_url('product/index');
+		$config['base_url'] = base_url('product/index');
 		// $config['page_query_string'] = TRUE;
 		// $config['use_page_numbers'] = TRUE;
 		$config['total_rows'] = $this->M_Product->get_published_count();
@@ -60,14 +61,14 @@ class Product extends CI_Controller {
 		$this->pagination->initialize($config);
 		$limit = $config['per_page'];
 		// $offset = html_escape($this->input->get('per_page'));
-		
-        $cart_content = $this->cart->contents();
 
-        $jml_item = 0;
+		$cart_content = $this->cart->contents();
 
-        foreach ($cart_content as $value) {
-            $jml_item = $jml_item + $value['qty'];
-        }
+		$jml_item = 0;
+
+		foreach ($cart_content as $value) {
+			$jml_item = $jml_item + $value['qty'];
+		}
 
 		$data = [
 			'title' => 'Product',
@@ -84,18 +85,18 @@ class Product extends CI_Controller {
 
 		$this->load->view('index', $data);
 	}
-    
+
 	public function show()
 	{
-        $id = $this->uri->segment(3);
-		
-        $cart_content = $this->cart->contents();
+		$id = $this->uri->segment(3);
 
-        $jml_item = 0;
+		$cart_content = $this->cart->contents();
 
-        foreach ($cart_content as $value) {
-            $jml_item = $jml_item + $value['qty'];
-        }
+		$jml_item = 0;
+
+		foreach ($cart_content as $value) {
+			$jml_item = $jml_item + $value['qty'];
+		}
 
 		$data = [
 			'title' => 'Home',
