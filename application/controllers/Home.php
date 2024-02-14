@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -30,6 +31,33 @@ class Home extends CI_Controller {
 	}
 
 	public function index()
+	{
+		$cart_content = $this->cart->contents();
+		$jml_item = 0;
+
+		foreach ($cart_content as $value) {
+			$jml_item = $jml_item + $value['qty'];
+		}
+
+		$data = [
+			'title' => 'Home',
+			'style' => 'layouts/_style',
+			// 'pages' => 'pages/home/v_home',
+			'script' => 'layouts/_script',
+			'best' => $this->M_Product->best(),
+			'testimonial' => $this->M_Home->testimonial(),
+			'cart_content' => $cart_content,
+			'jml_item' => $jml_item,
+			'total' => number_format($this->cart->total())
+		];
+
+		// var_dump($data['testimonial']);exit;
+
+		// $this->load->view('index', $data);
+		$this->load->view('v_gate', $data);
+	}
+
+	public function coffee()
 	{
 		$cart_content = $this->cart->contents();
 		$jml_item = 0;

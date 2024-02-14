@@ -30,19 +30,25 @@
                     <div class="main-menu-wrap">
                         <!-- logo -->
                         <div class="site-logo">
-                            <a href="<?= base_url(); ?>">
+                            <a href="<?= base_url('home/coffee'); ?>">
                                 <img src="<?= base_url(); ?>assets/img/logo_mlejit_crop.png" alt="">
                             </a>
                         </div>
                         <!-- logo -->
-                        
+
 
                         <!-- menu start -->
                         <nav class="main-menu">
                             <ul>
-                                <li class="<?php if (!$this->uri->segment(1)) { echo  'current-list-item';} ?>"><a href="<?= base_url(); ?>">Home</a></li>
-                                <li class="<?php if ($this->uri->segment(1) == "product") { echo  'current-list-item';} ?>"><a href="<?= base_url('product'); ?>">Menus</a></li>
-                                <li class="<?php if ($this->uri->segment(1) == "about") { echo  'current-list-item';} ?>"><a href="<?= base_url('about'); ?>">About</a></li>
+                                <li class="<?php if (!$this->uri->segment(1)) {
+                                                echo  'current-list-item';
+                                            } ?>"><a href="<?= base_url(); ?>">Home</a></li>
+                                <li class="<?php if ($this->uri->segment(1) == "product") {
+                                                echo  'current-list-item';
+                                            } ?>"><a href="<?= base_url('product'); ?>">Menus</a></li>
+                                <li class="<?php if ($this->uri->segment(1) == "about") {
+                                                echo  'current-list-item';
+                                            } ?>"><a href="<?= base_url('about'); ?>">About</a></li>
                                 <li><a href="#">Contact</a></li>
                                 <li>
                                     <div class="header-icons">
@@ -53,7 +59,7 @@
                                         <ul class="sub-menu">
                                             <?php
 
-                                        if (empty($jml_item)) {
+                                            if (empty($jml_item)) {
                                             ?>
                                                 Cart is empty
                                                 <?php
@@ -70,14 +76,14 @@
                                                                     <img src="<?= base_url(); ?>assets/img/menu_folder/<?= $gambar ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle" weight="50px" height="50px">
                                                                 </td>
                                                                 <td>
-                                                                    <tr class="table-body-row">
-                                                                        <td colspan="2"><b><?= $value['name'] ?></b></td>
-                                                                    </tr>
-                                                                    <tr class="table-body-row">
-                                                                        <td><?= $value['qty'] ?> * Rp<?= number_format($value['price']) ?></td>
-                                                                        <td>Rp<?= number_format($value['subtotal']) ?></td>
-                                                                    </tr>
-                                                                </td>
+                                                            <tr class="table-body-row">
+                                                                <td colspan="2"><b><?= $value['name'] ?></b></td>
+                                                            </tr>
+                                                            <tr class="table-body-row">
+                                                                <td><?= $value['qty'] ?> * Rp<?= number_format($value['price']) ?></td>
+                                                                <td>Rp<?= number_format($value['subtotal']) ?></td>
+                                                            </tr>
+                                                            </td>
                                                             </tr>
                                                         </table>
                                                     </li>
@@ -109,7 +115,7 @@
                             </ul>
                         </nav>
                         <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-                        
+
                         <div class="mobile-menu"></div>
                         <!-- menu end -->
                     </div>
@@ -119,7 +125,7 @@
     </div>
     <!-- end header -->
 
-    
+
     <!-- search area -->
     <div class="search-area">
         <div class="container">
@@ -140,7 +146,7 @@
     <!-- end search area -->
 
     <?php if (isset($pages)) $this->load->view($pages); ?>
-    
+
     <!-- logo carousel -->
     <!-- <div class="logo-carousel-section">
         <div class="container">
@@ -193,7 +199,9 @@
                     <div class="footer-box pages">
                         <h2 class="widget-title">Pages</h2>
                         <ul>
-                            <li class="<?php if (!$this->uri->segment(1)) { echo  'current-list-item';} ?>"><a href="<?= base_url();?>">Home</a></li>
+                            <li class="<?php if (!$this->uri->segment(1)) {
+                                            echo  'current-list-item';
+                                        } ?>"><a href="<?= base_url(); ?>">Home</a></li>
                             <li><a href="<?= base_url('products'); ?>">Menus</a></li>
                             <li><a href="<?= base_url('about'); ?>">About</a></li>
                             <li><a href="#">Contact</a></li>
@@ -214,30 +222,30 @@
         </div>
     </div>
     <!-- end footer -->
-	
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<!-- <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <!-- <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
 					</p> -->
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="https://www.instagram.com/mlejit_kopi/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<!-- <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li> -->
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://www.instagram.com/mlejit_kopi/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <!-- <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end copyright -->
 
     <?php if (isset($script)) $this->load->view($script); ?>
 

@@ -6,13 +6,13 @@ class M_Order extends CI_Model
 {
 	public function add($data)
 	{
-		$query = $this->cart->insert($data);;
+		$query = $this->cart->insert($data);
 
 		return $query;
 	}
 
 	public function max_number()
-	{		
+	{
 		$this->db->select_max('no_invoice');
 		$query = $this->db->get('transaction')->row_array();
 
