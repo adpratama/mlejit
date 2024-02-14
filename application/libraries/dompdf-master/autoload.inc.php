@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package dompdf
  * @link    http://dompdf.github.com/
@@ -11,8 +12,7 @@
 require_once __DIR__ . '/lib/html5lib/Parser.php';
 
 // Sabberworm
-spl_autoload_register(function($class)
-{
+spl_autoload_register(function ($class) {
     if (strpos($class, 'Sabberworm') !== false) {
         $file = str_replace('\\', DIRECTORY_SEPARATOR, $class);
         $file = realpath(__DIR__ . '/lib/php-css-parser/lib/' . (empty($file) ? '' : DIRECTORY_SEPARATOR) . $file . '.php');
@@ -25,7 +25,7 @@ spl_autoload_register(function($class)
 });
 
 // php-font-lib
-require_once __DIR__ . '/lib/php-font-lib/src/FontLib/Autoloader.php';
+// require_once __DIR__ . '/lib/php-font-lib/src/FontLib/Autoloader.php';
 
 //php-svg-lib
 require_once __DIR__ . '/lib/php-svg-lib/src/autoload.php';
