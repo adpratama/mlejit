@@ -19,13 +19,6 @@
 </head>
 
 <body>
-
-    <!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
     <!--PreLoader Ends--><!-- header -->
     <div class="top-header-area-villa" id="sticker">
         <div class="container">
@@ -50,39 +43,7 @@
     </div>
     <!-- end header -->
 
-
-    <!-- search area -->
-    <!-- end search area -->
-
     <?php if (isset($pages)) $this->load->view($pages); ?>
-
-    <!-- logo carousel -->
-    <!-- <div class="logo-carousel-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo-carousel-inner">
-                        <div class="single-logo-item">
-                            <img src="<?= base_url(); ?>assets/frontend/img/company-logos/1.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="<?= base_url(); ?>assets/frontend/img/company-logos/2.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="<?= base_url(); ?>assets/frontend/img/company-logos/3.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="<?= base_url(); ?>assets/frontend/img/company-logos/4.png" alt="">
-                        </div>
-                        <div class="single-logo-item">
-                            <img src="<?= base_url(); ?>assets/frontend/img/company-logos/5.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- end logo carousel -->
 
     <!-- footer -->
     <div class="footer-area-villa">
@@ -98,9 +59,9 @@
                     <div class="footer-box-villa get-in-touch">
                         <h2 class="widget-title-villa">Get in Touch</h2>
                         <ul>
-                            <li>Halim Perdanakusuma International Airport, Arrivals Terminal</li>
-                            <li>support@mlejit.net</li>
-                            <li>+62 817 010 7303</li>
+                            <!-- <li>Halim Perdanakusuma International Airport, Arrivals Terminal</li> -->
+                            <li>cs@harints.com</li>
+                            <li>+62819-9000-0360</li>
                         </ul>
                     </div>
                 </div>
@@ -117,16 +78,6 @@
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="col-lg-3 col-md-6">
-                    <div class="footer-box-villa subscribe">
-                        <h2 class="widget-title">Subscribe</h2>
-                        <p>Subscribe to our mailing list to get the latest updates.</p>
-                        <form action="index.html">
-                            <input type="email" placeholder="Email">
-                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                        </form>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
@@ -164,6 +115,23 @@
     <script src="https://unpkg.com/viewerjs/dist/viewer.js" crossorigin="anonymous"></script>
     <script src="<?= base_url() ?>assets/villa/js/image-viewer/js/jquery-viewer.js"></script>
     <script src="<?= base_url() ?>assets/villa/js/image-viewer/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#form_booking").on("submit", function() {
+
+                Swal.fire({
+                    title: "Loading...",
+                    timerProgressBar: true,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    },
+                });
+            });
+        })
+    </script>
 
 </body>
 

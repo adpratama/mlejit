@@ -19,13 +19,13 @@ class M_Villa extends CI_Model
 
     public function list_facility($id)
     {
-        $query = $this->db->where('parent_id', $id)->order_by('Id', 'ASC')->limit(3)->get('villa_facility_detail')->result();
+        $query = $this->db->where('Id', $id)->order_by('Id', 'ASC')->limit(3)->get('villa_facility_detail')->row();
         return $query;
     }
 
     public function list_facility_all($id)
     {
-        $query = $this->db->where('parent_id', $id)->order_by('Id', 'ASC')->get('villa_facility_detail')->result();
+        $query = $this->db->where('Id', $id)->order_by('Id', 'ASC')->get('villa_facility_detail')->row();
         return $query;
     }
 

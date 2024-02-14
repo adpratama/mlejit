@@ -4,21 +4,11 @@
         margin: 150px 0;
     }
 
-    .feature-bg-2:after {
-        background-image: url('../../../../../assets/villa/img/<?= $villa['photo'] ?>');
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 40%;
-        height: 100%;
-        max-height: 400px;
-        content: "";
-        background-size: cover;
-        background-position: center;
-        border-top-left-radius: 5px;
+    .preview-villa img {
+        border-radius: 5px;
         -webkit-box-shadow: 0 0 20px #cacaca;
         box-shadow: 0 0 20px #cacaca;
-        border-bottom-left-radius: 5px;
+        width: 100%;
     }
 </style>
 
@@ -58,11 +48,15 @@
                                         <h3><?= $f->name ?></h3>
                                         <ul>
                                             <?php
-                                            $facility = $this->M_Villa->list_facility_all($f->Id);
-
+                                            $string = substr($f->facilities, 0);
+                                            $facility = explode(",", $string);
                                             foreach ($facility as $fa) {
+                                                // $sql = "SELECT * FROM villa_facility_detail WHERE Id='$fa';";
+                                                // $query = $this->db->query($sql);
+                                                // $result = $query->row();
+                                                $result = $this->M_Villa->list_facility_all($fa);
                                             ?>
-                                                <li><?= $fa->name ?></li>
+                                                <li><?= $result->name ?></li>
                                             <?php
                                             }
                                             ?>
@@ -76,10 +70,13 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-5 preview-villa">
+                <img src="<?= base_url('assets/villa/img/' . $villa['photo']) ?>" alt="preview-villa">
+            </div>
         </div>
         <div class="row">
-            <div class="col-lg-7 text-right">
-                <a href="<?= base_url('villa/catalog/book/') . $villa['slug'] ?>" class="cart-btn-villa"><i class="fas fa-shopping-cart"></i> Book</a>
+            <div class="col-lg-7 text-center">
+                 <a href="<?= base_url('villa/booking/') ?>" class="cart-btn-villa"><i class="fas fa-shopping-cart"></i> Book</a> 
             </div>
         </div>
     </div>

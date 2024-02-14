@@ -1,25 +1,5 @@
 <!-- facts expander with toggles; content for each is in its section -->
-<div class="facts">
-    <div class="facts__toggle">
-        <span class="facts__toggle-inner facts__toggle-inner--more">
-            <svg class="icon icon--dot">
-                <use xlink:href="#icon-dot"></use>
-            </svg>
-            <span class="facts__toggle-text">See more</span>
-        </span>
-        <span class="facts__toggle-inner facts__toggle-inner--less">
-            <svg class="icon icon--cross">
-                <use xlink:href="#icon-cross"></use>
-            </svg>
-            <span class="facts__toggle-text">See less</span>
-        </span>
-    </div>
-    <button class="button-contentclose">
-        <svg class="icon icon--close">
-            <use xlink:href="#icon-close"></use>
-        </svg>
-    </button>
-</div>
+<div class="facts"></div>
 <!-- index -->
 <?php
 
@@ -62,7 +42,7 @@ foreach ($villas as $v) {
         <div class="section__more">
             <div class="section__more-inner section__more-inner--bg1">
                 <span class="section__more-text">Want to know more?</span>
-                <a href="<?= base_url('villa/catalog/details/') . $v->slug ?>" class="section__more-link">
+                <a href="<?= base_url('villa/detail/') . $v->slug ?>" class="section__more-link">
                     <span class="section__more-linktext">Explore <?= $v->name ?></span>
                     <svg class="icon icon--arrowlong">
                         <use xlink:href="#icon-arrowlong"></use>
@@ -81,44 +61,27 @@ foreach ($villas as $v) {
                 <li class="section__facts-item">
                     <h3 class="section__facts-title"><?= $f->name ?></h3>
                     <span class="section__facts-detail">
-                        <ul>
-                            <?php
-                            $parent_id = $f->Id;
-                            $facility = $this->M_Villa->list_facility($parent_id);
-                            // print_r($facility);
+                        <?php
+                        $string = substr($f->facilities, 0);
+                        $facility = explode(",", $string);
+                        $facility_max = array_splice($facility, 3);
+                        foreach ($facility as $fa) {
+                            $result = $this->M_Villa->list_facility_all($fa);
+                        ?>
+                            <ul>
+                                <li class="facility-item"><?= $result->name; ?></li>
+                            </ul>
 
-                            foreach ($facility as $fa) {
-                            ?>
-                                <li><?= $fa->name ?></li>
-                            <?php
-                            }
-                            ?>
-                        </ul>
+                        <?php
+                        }
+                        ?>
                     </span>
                 </li>
             <?php
             }
             ?>
-            <li class="section__facts-item section__facts-item--clickable" data-gallery="gallery1">
-                <div class="section__facts-img">
-                    <img src="<?= base_url() ?>assets/villa/img/thumb1.jpg" alt="Some image" />
-                    <svg class="icon icon--grid">
-                        <use xlink:href="#icon-grid"></use>
-                    </svg>
-                </div>
-                <h3 class="section__facts-title">More impressions</h3>
-                <span class="section__facts-detail">A collection of images</span>
-            </li>
         </ul>
-        <div class="section__gallery" id="gallery1">
-            <h3 class="section__gallery-item section__gallery-item--title">More impressions</h3>
-            <a class="section__gallery-item" href="#"><img src="<?= base_url() ?>assets/villa/img/thumb1.jpg" alt="Some image" /></a>
-            <a class="section__gallery-item" href="#"><img src="<?= base_url() ?>assets/villa/img/thumb2.jpg" alt="Some image" /></a>
-            <a class="section__gallery-item" href="#"><img src="<?= base_url() ?>assets/villa/img/thumb3.jpg" alt="Some image" /></a>
-            <a class="section__gallery-item" href="#"><img src="<?= base_url() ?>assets/villa/img/thumb4.jpg" alt="Some image" /></a>
-            <a class="section__gallery-item" href="#"><img src="<?= base_url() ?>assets/villa/img/thumb5.jpg" alt="Some image" /></a>
-            <a class="section__gallery-item" href="#"><img src="<?= base_url() ?>assets/villa/img/thumb6.jpg" alt="Some image" /></a>
-        </div>
+
     </section>
 <?php
 } ?>

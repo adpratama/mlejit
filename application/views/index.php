@@ -189,7 +189,7 @@
                     <div class="footer-box get-in-touch">
                         <h2 class="widget-title">Get in Touch</h2>
                         <ul>
-                            <li>Halim Perdanakusuma International Airport, Arrivals Terminal</li>
+                            <li>Halim Perdanakusuma International Airport, Near Car Parking Area</li>
                             <li>support@mlejit.net</li>
                             <li>+62 817 010 7303</li>
                         </ul>

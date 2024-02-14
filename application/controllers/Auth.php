@@ -38,14 +38,15 @@ class Auth extends CI_Controller
 		$user = $this->db->get_where('user', ['username' => $username])->row_array();
 
 		if ($user) {
-
 			// usernya ada
 			if ($user['is_active'] == 1) {
 				if (password_verify($password, $user['password'])) {
 					$data = [
+						'id_user' => $user['Id'],
 						'username' => $user['username'],
 						'email' => $user['email'],
-						'role_id' => $user['role_id']
+						'role_id' => $user['role_id'],
+						'is_logged_in' => true
 					];
 					$this->session->set_userdata($data);
 

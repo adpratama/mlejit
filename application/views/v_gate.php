@@ -56,7 +56,7 @@
                         <ul class="social-link-team">
                             <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                             <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="https://www.instagram.com/mlejit_kopi/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://instagram.com/mlejit_villa/" target="_blank"><i class="fab fa-instagram"></i></a></li>
                         </ul>
                     </div>
                     <h3>Mlejit Villa</h3>

@@ -217,10 +217,11 @@
             <!-- menu -->
             <nav class="menu">
                 <ul class="menu__inner">
-                    <li class="menu__item"><a class="menu__item-link" href="#">Our Story</a></li>
-                    <li class="menu__item"><a class="menu__item-link" href="#">Adventures</a></li>
-                    <li class="menu__item"><a class="menu__item-link" href="#">Testimonials</a></li>
-                    <li class="menu__item"><a class="menu__item-link" href="#">Contact</a></li>
+                    <li class="menu__item"><a class="menu__item-link" href="<?= base_url('villa/booking') ?>">Booking</a></li>
+                    <li class="menu__item"><a class="menu__item-link" href="<?= base_url('villa/camping') ?>">Price Camping</a></li>
+                    <li class="menu__item"><a class="menu__item-link" href="<?= base_url('villa/contact') ?>">Contact</a></li>
+                    <!--<li class="menu__item"><a class="menu__item-link" href="#">Testimonials</a></li>-->
+                    <!--<li class="menu__item"><a class="menu__item-link" href="#">Contact</a></li>-->
                 </ul>
                 <div class="menu__toggle">
                     <span class="menu__toggle-inner menu__toggle-inner--open">

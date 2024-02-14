@@ -23,34 +23,21 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="<?= base_url(); ?>" class="logo d-flex align-items-center">
                 <img src="<?= base_url(); ?>assets/img/logo_mlejit_crop.png" alt="">
-                <span class="d-none d-lg-block">mlejit kopi</span>
+                <!-- <span class="d-none d-lg-block">mlejit kopi</span> -->
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
-        </div><!-- End Logo -->
-
-        <!-- <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div>End Search Bar -->
+        </div>
+        <!-- End Logo -->
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
-                <!-- <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li> -->
-                <!-- End Search Icon-->
 
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="<?= base_url('assets/dashboard/img/profile/') . $user['image']; ?>" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"><?= $user['name'] ?></span>
-                    </a><!-- End Profile Iamge Icon -->
+                    </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
@@ -78,13 +65,17 @@
                             </a>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                    </ul>
+                    <!-- End Profile Dropdown Items -->
+                </li>
+                <!-- End Profile Nav -->
 
             </ul>
-        </nav><!-- End Icons Navigation -->
+        </nav>
+        <!-- End Icons Navigation -->
 
-    </header><!-- End Header -->
+    </header>
+    <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
@@ -96,6 +87,13 @@
                 <a class="nav-link <?php if ($this->uri->segment(2) != 'dashboard') echo 'collapsed' ?>" href="<?= base_url() ?>admin/dashboard">
                     <i class="bi bi-box"></i>
                     <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-heading">Invoice</li>
+            <li class="nav-item">
+                <a class="nav-link <?php if ($this->uri->segment(2) != 'invoice') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoice">
+                    <i class="bi bi-journal-check"></i>
+                    <span>Invoice</span>
                 </a>
             </li>
             <li class="nav-heading">Transaction</li>
@@ -135,7 +133,8 @@
 
         </ul>
 
-    </aside><!-- End Sidebar-->
+    </aside>
+    <!-- End Sidebar-->
 
     <?php if (isset($pages)) $this->load->view($pages); ?>
 
@@ -151,7 +150,8 @@
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
-    </footer><!-- End Footer -->
+    </footer>
+    <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <?php if (isset($script)) $this->load->view($script); ?>

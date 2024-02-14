@@ -724,9 +724,8 @@ screen and (max-height: 39.9em) {
 	}
 }
 
-li {
+li.facility-item {
 	white-space: normal;
-	float: left;
 	width: 100%;
 	height: auto;
 	word-wrap: break-word;
