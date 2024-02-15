@@ -27,7 +27,7 @@ class Category extends CI_Controller
 	public function index()
 	{
 		$data = [
-			"title" => "Dashboard",
+			"title" => "Category",
 			"style" => "dashboard/layouts/_style",
 			"pages" => "dashboard/pages/category/v_category",
 			"categories" => $this->M_Category->list_category(),
@@ -40,7 +40,7 @@ class Category extends CI_Controller
 	public function add()
 	{
 		$data = [
-			'title' => 'Add Cateory',
+			'title' => 'Add Category',
 			'style' => 'dashboard/layouts/_style',
 			'pages' => 'dashboard/pages/category/v_add_category',
 			'categories' => $this->M_Category->list_category(),

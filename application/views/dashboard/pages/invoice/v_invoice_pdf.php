@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title_pdf; ?></title>
     <style>
+        body {
+
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+
         #table {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
@@ -49,10 +54,10 @@
     <table style="margin-bottom: 30px;">
         <tbody>
             <tr>
-                <td style="width: 450px">
+                <td style="width: 400px">
                     <img src="<?= base_url(); ?>assets/img/logo_mlejit_new_crop.png" style="width: 200px;" alt="">
                 </td>
-                <td style="width: 450px;">
+                <td style="width: 400px;">
                     <table>
                         <tr>
                             <td>Tanggal</td>
@@ -69,7 +74,13 @@
             </tr>
         </tbody>
     </table>
-    <h3 style="text-align:center">INVOICE</h3>
+    <p style="width: 450px;">
+        <strong>Ditujukan kepada :</strong><br>
+        <?= $invoice['nama_customer'] ?> <br>
+        <?= $invoice['alamat_customer'] ?> <br>
+        <?= $invoice['telepon_customer'] ?>
+    </p>
+    <h3 style="text-align: center;">INVOICE</h3>
     <table id="table">
         <thead>
             <tr>
@@ -105,7 +116,7 @@
         </tbody>
     </table>
 
-    <p style="margin-top: 30px;">Keterangan: <?= $invoice['keterangan'] ?></p>
+    <p style="margin-top: 30px;">Keterangan: <br><?= $invoice['keterangan'] ?></p>
     <p style="margin-top: 100px;">Bank BCA 2060888399 a.n Handayani</p>
 </body>
 

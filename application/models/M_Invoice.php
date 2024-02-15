@@ -35,7 +35,7 @@ class M_Invoice extends CI_Model
 
     public function show($no_inv)
     {
-        return $this->db->where('no_invoice', $no_inv)->get('invoice')->row_array();
+        return $this->db->from('invoice a')->join('customer b', 'a.id_customer = b.id', 'left')->where('no_invoice', $no_inv)->get()->row_array();
     }
 
     public function item_list($id)

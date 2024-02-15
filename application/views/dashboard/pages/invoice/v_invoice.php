@@ -42,7 +42,7 @@
                                         <td>Rp<?= number_format($i->total_invoice) ?></td>
                                         <td><?= $i->name ?></td>
                                         <td>
-                                            <a href="<?= base_url('admin/invoice/print/' . $i->no_invoice) ?>" class="btn btn-info btn-sm">
+                                            <a href="<?= base_url('admin/invoice/print/' . $i->no_invoice) ?>" class="btn btn-info btn-sm" target="_blank">
                                                 <i class="bi bi-file-pdf"></i> Print
                                             </a>
                                         </td>

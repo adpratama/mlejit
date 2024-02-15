@@ -96,6 +96,12 @@
                     <span>Invoice</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <?php if ($this->uri->segment(2) != 'customer') echo 'collapsed' ?>" href="<?= base_url() ?>admin/customer">
+                    <i class="bi bi-journal-check"></i>
+                    <span>Customer</span>
+                </a>
+            </li>
             <li class="nav-heading">Transaction</li>
             <li class="nav-item">
                 <a class="nav-link <?php if ($this->uri->segment(2) != 'transaction') echo 'collapsed' ?>" href="<?= base_url() ?>admin/transaction">

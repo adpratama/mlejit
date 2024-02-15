@@ -7,7 +7,7 @@ class Invoice extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_Invoice');
+		$this->load->model(['M_Invoice', 'M_Customer']);
 		$this->load->helper(['string', 'url', 'date', 'number']);
 		$this->load->library(['session', 'pagination', 'pdfgenerator']);
 
@@ -52,6 +52,7 @@ class Invoice extends CI_Controller
 			'pages' => 'dashboard/pages/invoice/v_add_invoice',
 			'script' => 'dashboard/layouts/_script',
 			'no_invoice' => $no_inv,
+			'customers' => $this->M_Customer->list_customer(),
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 
@@ -76,6 +77,7 @@ class Invoice extends CI_Controller
 			'tanggal_invoice' => $this->input->post('tgl_invoice'),
 			'created_by' => $id_user,
 			'keterangan' => $this->input->post('keterangan'),
+			'id_customer' => $this->input->post('customer'),
 			'total_invoice' => $nominal,
 		];
 
@@ -105,7 +107,7 @@ class Invoice extends CI_Controller
 			$insert = $this->M_Invoice->insert_batch($detail_data);
 
 			if ($insert) {
-				$this->session->set_flashdata('message_name', 'The invoice has been successfully created. <br>' . $no_inv);
+				$this->session->set_flashdata('message_name', 'The invoice has been successfully created. ' . $no_inv);
 				// After that you need to used redirect function instead of load view such as 
 				redirect("admin/invoice");
 			}

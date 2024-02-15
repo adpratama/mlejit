@@ -1,3 +1,17 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-selection__rendered {
+        line-height: 31px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 35px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 34px !important;
+    }
+</style>
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Invoices</h1>
@@ -36,19 +50,32 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Create new invoice</h5>
-                                <div class="row">
+                                <div class="row g-2">
 
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label for="no_invoice" class="form-label">Number</label>
                                         <input type="text" class="form-control" name="no_invoice" value="<?= $no_invoice ?>" readonly>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label for="tgl_invoice" class="form-label">Date</label>
                                         <input type="date" class="form-control" name="tgl_invoice" value="<?= date('Y-m-d') ?>">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label for="nominal" class="form-label">Total</label>
                                         <input type="text" class="form-control" name="nominal" id="nominal" value="0" readonly>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="customer" class="form-label">Bill to</label>
+                                        <select name="customer" id="customer" class="form-control select2">
+                                            <option value="">--Select customer</option>
+                                            <?php
+                                            foreach ($customers as $c) :
+                                            ?>
+                                                <option value="<?= $c->id ?>"><?= $c->nama_customer ?></option>
+                                            <?php
+                                            endforeach
+                                            ?>
+                                        </select>
                                     </div>
                                     <div class="col-8">
                                         <label for="keterangan" class="form-label">Notes</label>
@@ -109,9 +136,15 @@
         </div>
     </section>
 </main>
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
+    // $(document).ready(function() {
+    $('.select2').select2();
+    // });
     $(document).ready(function() {
         var rowCount = 1; // Inisialisasi row
 
