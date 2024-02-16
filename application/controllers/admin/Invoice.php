@@ -41,7 +41,7 @@ class Invoice extends CI_Controller
 		$max_num = $this->M_Invoice->select_max();
 
 		if (!$max_num) {
-			$bilangan = 1; // Nilai Proses
+			$bilangan = 20; // Nilai Proses
 		} else {
 			$bilangan = $max_num['max'] + 1;
 		}
