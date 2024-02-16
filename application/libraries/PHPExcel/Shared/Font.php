@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPExcel
  *
@@ -150,40 +151,40 @@ class PHPExcel_Shared_Font
      */
     public static $defaultColumnWidths = array(
         'Arial' => array(
-             1 => array('px' => 24, 'width' => 12.00000000),
-             2 => array('px' => 24, 'width' => 12.00000000),
-             3 => array('px' => 32, 'width' => 10.66406250),
-             4 => array('px' => 32, 'width' => 10.66406250),
-             5 => array('px' => 40, 'width' => 10.00000000),
-             6 => array('px' => 48, 'width' =>  9.59765625),
-             7 => array('px' => 48, 'width' =>  9.59765625),
-             8 => array('px' => 56, 'width' =>  9.33203125),
-             9 => array('px' => 64, 'width' =>  9.14062500),
+            1 => array('px' => 24, 'width' => 12.00000000),
+            2 => array('px' => 24, 'width' => 12.00000000),
+            3 => array('px' => 32, 'width' => 10.66406250),
+            4 => array('px' => 32, 'width' => 10.66406250),
+            5 => array('px' => 40, 'width' => 10.00000000),
+            6 => array('px' => 48, 'width' =>  9.59765625),
+            7 => array('px' => 48, 'width' =>  9.59765625),
+            8 => array('px' => 56, 'width' =>  9.33203125),
+            9 => array('px' => 64, 'width' =>  9.14062500),
             10 => array('px' => 64, 'width' =>  9.14062500),
         ),
         'Calibri' => array(
-             1 => array('px' => 24, 'width' => 12.00000000),
-             2 => array('px' => 24, 'width' => 12.00000000),
-             3 => array('px' => 32, 'width' => 10.66406250),
-             4 => array('px' => 32, 'width' => 10.66406250),
-             5 => array('px' => 40, 'width' => 10.00000000),
-             6 => array('px' => 48, 'width' =>  9.59765625),
-             7 => array('px' => 48, 'width' =>  9.59765625),
-             8 => array('px' => 56, 'width' =>  9.33203125),
-             9 => array('px' => 56, 'width' =>  9.33203125),
+            1 => array('px' => 24, 'width' => 12.00000000),
+            2 => array('px' => 24, 'width' => 12.00000000),
+            3 => array('px' => 32, 'width' => 10.66406250),
+            4 => array('px' => 32, 'width' => 10.66406250),
+            5 => array('px' => 40, 'width' => 10.00000000),
+            6 => array('px' => 48, 'width' =>  9.59765625),
+            7 => array('px' => 48, 'width' =>  9.59765625),
+            8 => array('px' => 56, 'width' =>  9.33203125),
+            9 => array('px' => 56, 'width' =>  9.33203125),
             10 => array('px' => 64, 'width' =>  9.14062500),
             11 => array('px' => 64, 'width' =>  9.14062500),
         ),
         'Verdana' => array(
-             1 => array('px' => 24, 'width' => 12.00000000),
-             2 => array('px' => 24, 'width' => 12.00000000),
-             3 => array('px' => 32, 'width' => 10.66406250),
-             4 => array('px' => 32, 'width' => 10.66406250),
-             5 => array('px' => 40, 'width' => 10.00000000),
-             6 => array('px' => 48, 'width' =>  9.59765625),
-             7 => array('px' => 48, 'width' =>  9.59765625),
-             8 => array('px' => 64, 'width' =>  9.14062500),
-             9 => array('px' => 72, 'width' =>  9.00000000),
+            1 => array('px' => 24, 'width' => 12.00000000),
+            2 => array('px' => 24, 'width' => 12.00000000),
+            3 => array('px' => 32, 'width' => 10.66406250),
+            4 => array('px' => 32, 'width' => 10.66406250),
+            5 => array('px' => 40, 'width' => 10.00000000),
+            6 => array('px' => 48, 'width' =>  9.59765625),
+            7 => array('px' => 48, 'width' =>  9.59765625),
+            8 => array('px' => 64, 'width' =>  9.14062500),
+            9 => array('px' => 72, 'width' =>  9.00000000),
             10 => array('px' => 72, 'width' =>  9.00000000),
         ),
     );
@@ -287,7 +288,7 @@ class PHPExcel_Shared_Font
         }
 
         // Convert from pixel width to column width
-        $columnWidth = PHPExcel_Shared_Drawing::pixelsToCellDimension($columnWidth, $defaultFont);
+        $columnWidth = PHPExcel_Shared_Drawing::pixelsToCellDimension($defaultFont, $columnWidth);
 
         // Return
         return round($columnWidth, 6);
@@ -315,13 +316,13 @@ class PHPExcel_Shared_Font
 
         // Get corners positions
         $lowerLeftCornerX  = $textBox[0];
-//        $lowerLeftCornerY  = $textBox[1];
+        //        $lowerLeftCornerY  = $textBox[1];
         $lowerRightCornerX = $textBox[2];
-//        $lowerRightCornerY = $textBox[3];
+        //        $lowerRightCornerY = $textBox[3];
         $upperRightCornerX = $textBox[4];
-//        $upperRightCornerY = $textBox[5];
+        //        $upperRightCornerY = $textBox[5];
         $upperLeftCornerX  = $textBox[6];
-//        $upperLeftCornerY  = $textBox[7];
+        //        $upperLeftCornerY  = $textBox[7];
 
         // Consider the rotation when calculating the width
         $textWidth = max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX);
@@ -352,7 +353,7 @@ class PHPExcel_Shared_Font
 
             case 'Arial':
                 // value 7 was found via interpolation by inspecting real Excel files with Arial 10 font.
-//                $columnWidth = (int) (7 * PHPExcel_Shared_String::CountCharacters($columnText));
+                //                $columnWidth = (int) (7 * PHPExcel_Shared_String::CountCharacters($columnText));
                 // value 8 was set because of experience in different exports at Arial 10 font.
                 $columnWidth = (int) (8 * PHPExcel_Shared_String::CountCharacters($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
@@ -379,7 +380,7 @@ class PHPExcel_Shared_Font
             } else {
                 // rotated text
                 $columnWidth = $columnWidth * cos(deg2rad($rotation))
-                                + $fontSize * abs(sin(deg2rad($rotation))) / 5; // approximation
+                    + $fontSize * abs(sin(deg2rad($rotation))) / 5; // approximation
             }
         }
 
@@ -441,19 +442,19 @@ class PHPExcel_Shared_Font
             case 'Arial':
                 $fontFile = (
                     $bold ? ($italic ? self::ARIAL_BOLD_ITALIC : self::ARIAL_BOLD)
-                          : ($italic ? self::ARIAL_ITALIC : self::ARIAL)
+                    : ($italic ? self::ARIAL_ITALIC : self::ARIAL)
                 );
                 break;
             case 'Calibri':
                 $fontFile = (
                     $bold ? ($italic ? self::CALIBRI_BOLD_ITALIC : self::CALIBRI_BOLD)
-                          : ($italic ? self::CALIBRI_ITALIC : self::CALIBRI)
+                    : ($italic ? self::CALIBRI_ITALIC : self::CALIBRI)
                 );
                 break;
             case 'Courier New':
                 $fontFile = (
                     $bold ? ($italic ? self::COURIER_NEW_BOLD_ITALIC : self::COURIER_NEW_BOLD)
-                          : ($italic ? self::COURIER_NEW_ITALIC : self::COURIER_NEW)
+                    : ($italic ? self::COURIER_NEW_ITALIC : self::COURIER_NEW)
                 );
                 break;
             case 'Comic Sans MS':
@@ -464,7 +465,7 @@ class PHPExcel_Shared_Font
             case 'Georgia':
                 $fontFile = (
                     $bold ? ($italic ? self::GEORGIA_BOLD_ITALIC : self::GEORGIA_BOLD)
-                          : ($italic ? self::GEORGIA_ITALIC : self::GEORGIA)
+                    : ($italic ? self::GEORGIA_ITALIC : self::GEORGIA)
                 );
                 break;
             case 'Impact':
@@ -473,7 +474,7 @@ class PHPExcel_Shared_Font
             case 'Liberation Sans':
                 $fontFile = (
                     $bold ? ($italic ? self::LIBERATION_SANS_BOLD_ITALIC : self::LIBERATION_SANS_BOLD)
-                          : ($italic ? self::LIBERATION_SANS_ITALIC : self::LIBERATION_SANS)
+                    : ($italic ? self::LIBERATION_SANS_ITALIC : self::LIBERATION_SANS)
                 );
                 break;
             case 'Lucida Console':
@@ -488,7 +489,7 @@ class PHPExcel_Shared_Font
             case 'Palatino Linotype':
                 $fontFile = (
                     $bold ? ($italic ? self::PALATINO_LINOTYPE_BOLD_ITALIC : self::PALATINO_LINOTYPE_BOLD)
-                          : ($italic ? self::PALATINO_LINOTYPE_ITALIC : self::PALATINO_LINOTYPE)
+                    : ($italic ? self::PALATINO_LINOTYPE_ITALIC : self::PALATINO_LINOTYPE)
                 );
                 break;
             case 'Symbol':
@@ -502,23 +503,23 @@ class PHPExcel_Shared_Font
             case 'Times New Roman':
                 $fontFile = (
                     $bold ? ($italic ? self::TIMES_NEW_ROMAN_BOLD_ITALIC : self::TIMES_NEW_ROMAN_BOLD)
-                          : ($italic ? self::TIMES_NEW_ROMAN_ITALIC : self::TIMES_NEW_ROMAN)
+                    : ($italic ? self::TIMES_NEW_ROMAN_ITALIC : self::TIMES_NEW_ROMAN)
                 );
                 break;
             case 'Trebuchet MS':
                 $fontFile = (
                     $bold ? ($italic ? self::TREBUCHET_MS_BOLD_ITALIC : self::TREBUCHET_MS_BOLD)
-                          : ($italic ? self::TREBUCHET_MS_ITALIC : self::TREBUCHET_MS)
+                    : ($italic ? self::TREBUCHET_MS_ITALIC : self::TREBUCHET_MS)
                 );
                 break;
             case 'Verdana':
                 $fontFile = (
                     $bold ? ($italic ? self::VERDANA_BOLD_ITALIC : self::VERDANA_BOLD)
-                          : ($italic ? self::VERDANA_ITALIC : self::VERDANA)
+                    : ($italic ? self::VERDANA_ITALIC : self::VERDANA)
                 );
                 break;
             default:
-                throw new PHPExcel_Exception('Unknown font name "'. $name .'". Cannot map to TrueType font file');
+                throw new PHPExcel_Exception('Unknown font name "' . $name . '". Cannot map to TrueType font file');
                 break;
         }
 
@@ -541,7 +542,7 @@ class PHPExcel_Shared_Font
     public static function getCharsetFromFontName($name)
     {
         switch ($name) {
-            // Add more cases. Check FONT records in real Excel files.
+                // Add more cases. Check FONT records in real Excel files.
             case 'EucrosiaUPC':
                 return self::CHARSET_ANSI_THAI;
             case 'Wingdings':
@@ -569,14 +570,13 @@ class PHPExcel_Shared_Font
             // Exact width can be determined
             $columnWidth = $pPixels ?
                 self::$defaultColumnWidths[$font->getName()][$font->getSize()]['px']
-                    : self::$defaultColumnWidths[$font->getName()][$font->getSize()]['width'];
-
+                : self::$defaultColumnWidths[$font->getName()][$font->getSize()]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
             $columnWidth = $pPixels ?
                 self::$defaultColumnWidths['Calibri'][11]['px']
-                    : self::$defaultColumnWidths['Calibri'][11]['width'];
+                : self::$defaultColumnWidths['Calibri'][11]['width'];
             $columnWidth = $columnWidth * $font->getSize() / 11;
 
             // Round pixels to closest integer

@@ -35,7 +35,7 @@ class PHPExcel_Shared_Excel5
      * @param PHPExcel_Worksheet $sheet The sheet
      * @param string $col The column
      * @return integer The width in pixels
-    */
+     */
     public static function sizeCol($sheet, $col = 'A')
     {
         // default font of the workbook
@@ -48,12 +48,12 @@ class PHPExcel_Shared_Excel5
             // then we have column dimension with explicit width
             $columnDimension = $columnDimensions[$col];
             $width = $columnDimension->getWidth();
-            $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($width, $font);
+            $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($font, $width);
         } elseif ($sheet->getDefaultColumnDimension()->getWidth() != -1) {
             // then we have default column dimension with explicit width
             $defaultColumnDimension = $sheet->getDefaultColumnDimension();
             $width = $defaultColumnDimension->getWidth();
-            $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($width, $font);
+            $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($font, $width);
         } else {
             // we don't even have any default column dimension. Width depends on default font
             $pixelWidth = PHPExcel_Shared_Font::getDefaultColumnWidthByFont($font, true);
@@ -245,8 +245,8 @@ class PHPExcel_Shared_Excel5
             $y1 = 0;
         }
 
-        $width      = $width  + $x1 -1;
-        $height     = $height + $y1 -1;
+        $width      = $width  + $x1 - 1;
+        $height     = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
         while ($width >= self::sizeCol($sheet, PHPExcel_Cell::stringFromColumnIndex($col_end))) {

@@ -777,7 +777,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
                 //Autofilter built in name
                 $name = pack('C', 0x0D);
 
-                $chunk .= $this->writeData($this->writeShortNameBiff8($name, $i + 1, $rangeBounds, true));
+                $chunk .= $this->writeData($this->writeShortNameBiff8($name, $rangeBounds, $i + 1, true));
             }
         }
 
@@ -828,7 +828,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
      * @param    boolean      $isHidden
      * @return    string    Complete binary record data
      * */
-    private function writeShortNameBiff8($name, $sheetIndex = 0, $rangeBounds, $isHidden = false)
+    private function writeShortNameBiff8($name, $rangeBounds, $sheetIndex = 0, $isHidden = false)
     {
         $record = 0x0018;
 
