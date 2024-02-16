@@ -42,4 +42,9 @@ class M_Invoice extends CI_Model
     {
         return $this->db->where('id_invoice', $id)->get('invoice_details')->result();
     }
+
+    public function report($from, $to)
+    {
+        return $this->db->from('invoice a')->join('customer b', 'a.id_customer = b.id', 'left')->where('tanggal_invoice >=', $from)->where('tanggal_invoice <=', $to)->get()->result();
+    }
 }

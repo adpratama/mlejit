@@ -28,8 +28,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message_name') ?>"></div>
+                <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('message_error') ?>"></div>
                 <div class="card">
                     <div class="card-header text-end">
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#reportExcel">
+                            Report
+                        </button>
                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createNewInvoice">
                             Create Invoice
                         </button>
@@ -107,17 +111,31 @@
         </div>
     </div>
 </div>
-
-<script>
-    $('.select2').select2({
-        dropdownParent: $('#createNewInvoice')
-    });
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            columnDefs: [{
-                targets: 3, // Menggunakan index kolom ke-3, dimulai dari 0
-                className: 'dt-body-right' // Menambahkan class untuk rata kanan pada isi kolom
-            }],
-        });
-    });
-</script>
+<div class="modal fade" id="reportExcel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= base_url('admin/invoice/report') ?>" method="POST">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="from" class="form-label">From</label>
+                            <input type="date" name="from" id="from" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <label for="to" class="form-label">To</label>
+                            <input type="date" name="to" id="to" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Download excel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
