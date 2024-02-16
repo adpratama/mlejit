@@ -107,7 +107,15 @@
             endforeach;
             ?>
             <tr>
-                <td class="text-center" colspan="4">SUBTOTAL</td>
+                <td class="" colspan="4">SUBTOTAL</td>
+                <td class="text-right"><?= number_format($invoice['subtotal']) ?></td>
+            </tr>
+            <tr>
+                <td class="" colspan="4">DISKON <?= $invoice['diskon'] * 100 ?>%</td>
+                <td class="text-right"><?= number_format($invoice['besaran_diskon']) ?></td>
+            </tr>
+            <tr>
+                <td class="" colspan="4">GRAND TOTAL</td>
                 <td class="text-right"><?= number_format($invoice['total_invoice']) ?></td>
             </tr>
             <tr>

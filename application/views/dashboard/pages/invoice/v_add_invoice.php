@@ -60,28 +60,47 @@
                                         <label for="tgl_invoice" class="form-label">Date</label>
                                         <input type="date" class="form-control" name="tgl_invoice" value="<?= date('Y-m-d') ?>">
                                     </div>
-                                    <div class="col-3">
-                                        <label for="nominal" class="form-label">Total</label>
-                                        <input type="text" class="form-control" name="nominal" id="nominal" value="0" readonly>
-                                    </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         <label for="customer" class="form-label">Bill to</label>
-                                        <select name="customer" id="customer" class="form-control select2">
-                                            <option value="">--Select customer</option>
+                                        <select name="customer" id="customer" class="form-control">
                                             <?php
-                                            foreach ($customers as $c) :
-                                            ?>
-                                                <option value="<?= $c->id ?>"><?= $c->nama_customer ?></option>
+                                            foreach ($customers as $c) : ?>
+                                                <?php
+                                                if ($c->id == $customer['id']) : ?>
+                                                    <option value="<?= $c->id ?>" selected><?= $c->nama_customer ?></option>
+                                                <?php
+                                                endif; ?>
                                             <?php
-                                            endforeach
-                                            ?>
+                                            endforeach; ?>
                                         </select>
                                     </div>
-                                    <div class="col-8">
-                                        <label for="keterangan" class="form-label">Notes</label>
-                                        <textarea name="keterangan" id="keterangan" cols="30" rows="1" class="form-control" oninput="this.value = this.value.toUpperCase()"></textarea>
+                                    <div class="col-2">
+                                        <label for="diskon" class="form-label">Discount</label>
+                                        <select name="diskon" id="diskon" class="form-control">
+                                            <?= ($customer['status_customer'] == "eksternal") ? '<option value="0">0%</option>' : '' ?>
+                                            <option value="0.05">5%</option>
+                                            <option value="0.1">10%</option>
+                                        </select>
                                     </div>
-                                    <div class="col-4 text-end">
+                                    <div class="col-12">
+                                        <label for="keterangan" class="form-label">Notes</label>
+                                        <textarea name="keterangan" id="keterangan" cols="30" rows="2" class="form-control" oninput="this.value = this.value.toUpperCase()" placeholder="Enter notes here..." required></textarea>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="nominal" class="form-label">Subtotal</label>
+                                        <input type="text" class="form-control" name="nominal" id="nominal" value="0" readonly>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="besaran_diskon" class="form-label">Discount</label>
+                                        <input type="text" class="form-control" name="besaran_diskon" id="besaran_diskon" value="0" readonly>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="grandtotal" class="form-label">Total</label>
+                                        <input type="text" class="form-control" name="grandtotal" id="grandtotal" value="0" readonly>
+                                    </div>
+                                    <div class="col-3 text-end">
                                         <label for="keterangan" class="form-label">&nbsp;</label>
                                         <div class="mt-2">
                                             <a href="<?= base_url('admin/invoice') ?>" class="btn btn-sm btn-warning"><i class="bi bi-arrow-return-left"></i> Back</a>
@@ -90,7 +109,6 @@
                                     </div>
 
                                 </div>
-
                                 <table class="table mt-5">
                                     <thead>
                                         <tr>
@@ -139,12 +157,8 @@
 <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-    // $(document).ready(function() {
-    $('.select2').select2();
-    // });
     $(document).ready(function() {
         var rowCount = 1; // Inisialisasi row
 
@@ -195,6 +209,7 @@
             var row = $(this).closest('.baris');
             hitungTotal(row);
             updateTotalBelanja();
+            updateDiscountAndTotal();
         });
 
         // Tambahkan event listener untuk event keyup
@@ -208,6 +223,7 @@
             var row = $(this).closest('.baris');
             hitungTotal(row);
             updateTotalBelanja();
+            updateDiscountAndTotal();
         });
 
         function hitungTotal(row) {
@@ -244,6 +260,33 @@
         $(document).on('click', '.hapusRow', function() {
             $(this).closest('.baris').remove();
             updateTotalBelanja(); // Perbarui total belanja setelah menghapus baris
+            updateDiscountAndTotal();
         });
+
+        // Saat opsi diskon berubah
+        $('#diskon').on('change', function() {
+            // Panggil fungsi untuk mengupdate besaran diskon dan total
+            updateDiscountAndTotal();
+        });
+
+        // Fungsi untuk mengupdate besaran diskon dan total
+        function updateDiscountAndTotal() {
+            var diskon = parseFloat($('#diskon').val());
+            var subtotal = 0;
+            // Hitung subtotal dari total setiap baris
+            $('.baris').each(function() {
+                var totalBaris = parseInt($(this).find('input[name="total[]"]').val().replace(/\./g, '') || 0);
+                subtotal += totalBaris;
+            });
+            // Hitung besaran diskon
+            var besaranDiskon = subtotal * diskon;
+            // Hitung total setelah diskon
+            var total = subtotal - besaranDiskon;
+            // Atur nilai input besaran_diskon dan total dengan format angka yang sesuai
+            $('#besaran_diskon').val(formatNumber(besaranDiskon));
+            $('#grandtotal').val(formatNumber(total));
+        }
+
+
     });
 </script>

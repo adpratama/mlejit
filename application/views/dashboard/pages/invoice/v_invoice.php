@@ -1,4 +1,18 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-selection__rendered {
+        line-height: 31px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 35px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 34px !important;
+    }
+</style>
 
 <main id="main" class="main">
     <div class="pagetitle">
@@ -16,7 +30,9 @@
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message_name') ?>"></div>
                 <div class="card">
                     <div class="card-header text-end">
-                        <a href="<?= base_url('admin/invoice/add') ?>" class="btn btn-primary btn-sm">Create invoice</a>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createNewInvoice">
+                            Create Invoice
+                        </button>
                     </div>
                     <div class="card-body">
                         <table class="table datatable" id="myTable">
@@ -58,9 +74,44 @@
         </div>
     </section>
 </main>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<div class="modal fade" id="createNewInvoice" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= base_url('admin/invoice/add') ?>" method="POST">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="status_customer" class="form-label">Customer</label>
+                            <select name="customer" id="customer" class="form-control">
+                                <option value="">--Select customer</option>
+                                <?php
+                                foreach ($customers as $c) :
+                                ?>
+                                    <option value="<?= $c->slug ?>"><?= $c->nama_customer ?> (<?= strtoupper($c->status_customer) ?>)</option>
+                                <?php
+                                endforeach
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
+    $('.select2').select2({
+        dropdownParent: $('#createNewInvoice')
+    });
     $(document).ready(function() {
         $('#myTable').DataTable({
             columnDefs: [{

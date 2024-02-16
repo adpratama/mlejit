@@ -25,6 +25,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Status</th>
                                     <th>Act</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $i->nama_customer ?></td>
+                                        <td><?= strtoupper($i->status_customer) ?></td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detail<?= $i->slug ?>">
                                                 <i class="bi bi-pencil"></i>
@@ -66,11 +68,18 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="nama_customer" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="nama_customer" required>
+                            <input type="text" class="form-control" name="nama_customer" oninput="this.value = this.value.toUpperCase()" required>
                         </div>
-                        <div class="col-12">
+                        <div class="col-6">
                             <label for="telepon_customer" class="form-label">Phone</label>
                             <input type="text" class="form-control" name="telepon_customer" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="status_customer" class="form-label">Status</label>
+                            <select name="status_customer" id="status_customer" class="form-control">
+                                <option value="eksternal">Eksternal</option>
+                                <option value="internal">Internal</option>
+                            </select>
                         </div>
                         <div class="col-12">
                             <label for="alamat_customer" class="form-label">Address</label>
@@ -85,7 +94,7 @@
             </form>
         </div>
     </div>
-</div><!-- End Vertically centered Modal-->
+</div>
 
 <?php
 foreach ($customers as $i) {
@@ -102,11 +111,18 @@ foreach ($customers as $i) {
                         <div class="row g-3">
                             <div class="col-12">
                                 <label for="nama_customer" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="nama_customer" value="<?= $i->nama_customer ?>" required>
+                                <input type="text" class="form-control" name="nama_customer" value="<?= $i->nama_customer ?>" oninput="this.value = this.value.toUpperCase()" required>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <label for="telepon_customer" class="form-label">Phone</label>
                                 <input type="text" class="form-control" name="telepon_customer" value="<?= $i->telepon_customer ?>" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="status_customer" class="form-label">Status</label>
+                                <select name="status_customer" id="status_customer" class="form-control">
+                                    <option <?= ($i->status_customer == "eksternal") ? 'selected' : '' ?> value="eksternal">Eksternal</option>
+                                    <option <?= ($i->status_customer == "internal") ? 'selected' : '' ?> value="internal">Internal</option>
+                                </select>
                             </div>
                             <div class="col-12">
                                 <label for="alamat_customer" class="form-label">Address</label>

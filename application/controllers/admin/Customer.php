@@ -43,18 +43,18 @@ class Customer extends CI_Controller
 			'nama_customer' => $nama_customer,
 			'alamat_customer' => $this->input->post('alamat_customer'),
 			'telepon_customer' => $this->input->post('telepon_customer'),
+			'status_customer' => $this->input->post('status_customer'),
 			'slug' => $slug,
 		];
 
 		$old_slug = $this->uri->segment(4);
+		if ($old_slug) {
+			$this->M_Customer->update($data, $old_slug);
 
-		if ($this->M_Customer->is_available($slug)) {
-			$this->session->set_flashdata('message_error', 'Customer ' . $nama_customer . ' sudah ada.');
+			$this->session->set_flashdata('message_name', 'The customer has been successfully updated.');
 		} else {
-			if ($old_slug) {
-				$this->M_Customer->update($data, $old_slug);
-
-				$this->session->set_flashdata('message_name', 'The customer has been successfully updated.');
+			if ($this->M_Customer->is_available($slug)) {
+				$this->session->set_flashdata('message_error', 'Customer ' . $nama_customer . ' sudah ada.');
 			} else {
 				$this->M_Customer->insert($data);
 

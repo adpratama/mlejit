@@ -29,6 +29,7 @@ class Invoice extends CI_Controller
 			'pages' => 'dashboard/pages/invoice/v_invoice',
 			'invoices' => $this->M_Invoice->list_invoice(),
 			'script' => 'dashboard/layouts/_script',
+			'customers' => $this->M_Customer->list_customer(),
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 		$this->load->view('dashboard/index', $data);
@@ -36,6 +37,7 @@ class Invoice extends CI_Controller
 
 	public function add()
 	{
+		$customer = $this->M_Customer->show($this->input->post('customer'));
 		$max_num = $this->M_Invoice->select_max();
 
 		if (!$max_num) {
@@ -53,6 +55,7 @@ class Invoice extends CI_Controller
 			'script' => 'dashboard/layouts/_script',
 			'no_invoice' => $no_inv,
 			'customers' => $this->M_Customer->list_customer(),
+			'customer' => $customer,
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 
@@ -67,7 +70,10 @@ class Invoice extends CI_Controller
 		$totals = $this->input->post('total');
 
 		$id_user = $this->session->userdata('id_user');
+		$diskon = $this->input->post('diskon');
 		$nominal = preg_replace('/[^a-zA-Z0-9\']/', '', $this->input->post('nominal'));
+		$besaran_diskon = preg_replace('/[^a-zA-Z0-9\']/', '', $this->input->post('besaran_diskon'));
+		$grandtotal = preg_replace('/[^a-zA-Z0-9\']/', '', $this->input->post('grandtotal'));
 
 		$no_inv = $this->input->post('no_invoice');
 
@@ -78,7 +84,10 @@ class Invoice extends CI_Controller
 			'created_by' => $id_user,
 			'keterangan' => $this->input->post('keterangan'),
 			'id_customer' => $this->input->post('customer'),
-			'total_invoice' => $nominal,
+			'subtotal' => $nominal,
+			'diskon' => $diskon,
+			'besaran_diskon' => $besaran_diskon,
+			'total_invoice' => $grandtotal,
 		];
 
 		$id_invoice = $this->M_Invoice->insert($invoice_data);
