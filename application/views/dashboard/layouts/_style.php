@@ -1,7 +1,7 @@
 <!-- Favicons -->
 
 <link rel="shortcut icon" type="image/png" href="<?= base_url() ?>assets/img/logo_mlejit_icon.png">
-<link href="<?= base_url('assets/'); ?>dashboard/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="<?= base_url() ?>assets/img/logo_mlejit_icon.png" rel=" apple-touch-icon">
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
