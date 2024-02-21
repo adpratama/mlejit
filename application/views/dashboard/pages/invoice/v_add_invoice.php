@@ -77,7 +77,7 @@
                                     <div class="col-2">
                                         <label for="diskon" class="form-label">Discount</label>
                                         <select name="diskon" id="diskon" class="form-control">
-                                            <?= ($customer['status_customer'] == "eksternal") ? '<option value="0">0%</option>' : '' ?>
+                                            <option value="0">0%</option>
                                             <option value="0.05">5%</option>
                                             <option value="0.1">10%</option>
                                         </select>
