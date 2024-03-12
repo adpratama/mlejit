@@ -28,10 +28,8 @@ class Product extends CI_Controller
 	{
 		$data = [
 			'title' => 'Product',
-			'style' => 'dashboard/layouts/_style',
 			'pages' => 'dashboard/pages/products/v_product',
 			'products' => $this->M_Product->list_product(),
-			'script' => 'dashboard/layouts/_script',
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 		$this->load->view('dashboard/index', $data);
@@ -41,11 +39,9 @@ class Product extends CI_Controller
 	{
 		$data = [
 			'title' => 'Add Product',
-			'style' => 'dashboard/layouts/_style',
 			'pages' => 'dashboard/pages/products/v_add_product',
 			'categories' => $this->M_Category->list_category(),
 			'products' => $this->M_Product->list_product(),
-			'script' => 'dashboard/layouts/_script',
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 
@@ -113,11 +109,9 @@ class Product extends CI_Controller
 
 		$data = [
 			'title' => 'Edit Product',
-			'style' => 'dashboard/layouts/_style',
 			'pages' => 'dashboard/pages/products/v_add_product',
 			'categories' => $this->M_Category->list_category(),
 			'products' => $this->M_Product->detail_product($id),
-			'script' => 'dashboard/layouts/_script',
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 

@@ -71,10 +71,8 @@ class Customer extends CI_Controller
 
 		$data = [
 			'title' => 'Edit Category',
-			'style' => 'dashboard/layouts/_style',
 			'pages' => 'dashboard/pages/category/v_add_category',
 			'category' => $this->M_Category->detail_category($id),
-			'script' => 'dashboard/layouts/_script',
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 

@@ -12,7 +12,7 @@
     <!-- title -->
     <title><?= $title ?> - Mlejit Coffee Shop</title>
 
-    <?php if (isset($style)) $this->load->view($style); ?>
+    <?php $this->load->view('dashboard/layouts/_style'); ?>
 </head>
 
 <body>
@@ -89,7 +89,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-heading">Invoice</li>
+            <li class="nav-heading">Invoice Mlejit Coffee</li>
             <li class="nav-item">
                 <a class="nav-link <?php if ($this->uri->segment(2) != 'invoice') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoice">
                     <i class="bi bi-journal-check"></i>
@@ -120,6 +120,13 @@
                 <a class="nav-link <?php if ($this->uri->segment(2) != 'category') echo 'collapsed' ?>" href="<?= base_url() ?>admin/category">
                     <i class="bi bi-list-check"></i>
                     <span>Categories</span>
+                </a>
+            </li>
+            <li class="nav-heading">Invoice Mlejit Mart</li>
+            <li class="nav-item">
+                <a class="nav-link <?php if ($this->uri->segment(2) != 'invoicemart') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoicemart">
+                    <i class="bi bi-journal-check"></i>
+                    <span>Invoice</span>
                 </a>
             </li>
             <li class="nav-heading">Configuration</li>
@@ -160,7 +167,7 @@
     <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <?php if (isset($script)) $this->load->view($script); ?>
+    <?php $this->load->view('dashboard/layouts/_script'); ?>
 
 </body>
 

@@ -24,9 +24,7 @@ class Dashboard extends CI_Controller
 	{
 		$data = [
 			'title' => 'Dashboard',
-			'style' => 'dashboard/layouts/_style',
 			'pages' => 'dashboard/pages/dashboard/v_dashboard',
-			'script' => 'dashboard/layouts/_script',
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 		$this->load->view('dashboard/index', $data);

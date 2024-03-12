@@ -3,13 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 error_reporting(E_ALL & ~E_DEPRECATED);
 
-class Invoice extends CI_Controller
+class Invoicemart extends CI_Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['M_Invoice', 'M_Customer']);
+		$this->load->model(['M_InvoiceMart', 'M_Customer']);
 		$this->load->helper(['string', 'url', 'date', 'number']);
 		$this->load->library(['session', 'pagination', 'pdfgenerator', 'PHPExcel']);
 
@@ -27,8 +27,8 @@ class Invoice extends CI_Controller
 	{
 		$data = [
 			'title' => 'Invoice',
-			'pages' => 'dashboard/pages/invoice/v_invoice',
-			'invoices' => $this->M_Invoice->list_invoice(),
+			'pages' => 'dashboard/pages/invoice-mart/v_invoice',
+			'invoices' => $this->M_InvoiceMart->list_invoice(),
 			'customers' => $this->M_Customer->list_customer(),
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
@@ -38,10 +38,10 @@ class Invoice extends CI_Controller
 	public function add()
 	{
 		$customer = $this->M_Customer->show($this->input->post('customer'));
-		$max_num = $this->M_Invoice->select_max();
+		$max_num = $this->M_InvoiceMart->select_max();
 
 		if (!$max_num['max']) {
-			$bilangan = 20; // Nilai Proses
+			$bilangan = 1; // Nilai Proses
 		} else {
 			$bilangan = $max_num['max'] + 1;
 		}
@@ -50,7 +50,7 @@ class Invoice extends CI_Controller
 
 		$data = [
 			'title' => 'Create Invoice',
-			'pages' => 'dashboard/pages/invoice/v_add_invoice',
+			'pages' => 'dashboard/pages/invoice-mart/v_add_invoice',
 			'no_invoice' => $no_inv,
 			'customers' => $this->M_Customer->list_customer(),
 			'customer' => $customer,
@@ -88,7 +88,7 @@ class Invoice extends CI_Controller
 			'total_invoice' => $grandtotal,
 		];
 
-		$id_invoice = $this->M_Invoice->insert($invoice_data);
+		$id_invoice = $this->M_InvoiceMart->insert($invoice_data);
 
 		$detail_data = [];
 
@@ -111,12 +111,12 @@ class Invoice extends CI_Controller
 		}
 
 		if (!empty($detail_data)) {
-			$insert = $this->M_Invoice->insert_batch($detail_data);
+			$insert = $this->M_InvoiceMart->insert_batch($detail_data);
 
 			if ($insert) {
 				$this->session->set_flashdata('message_name', 'The invoice has been successfully created. ' . $no_inv);
 				// After that you need to used redirect function instead of load view such as 
-				redirect("admin/invoice");
+				redirect("admin/invoicemart");
 			}
 		}
 	}
@@ -128,7 +128,7 @@ class Invoice extends CI_Controller
 		$data = [
 			'title' => 'Edit Category',
 			'pages' => 'dashboard/pages/category/v_add_category',
-			'category' => $this->M_Invoice->detail_category($id),
+			'category' => $this->M_InvoiceMart->detail_category($id),
 			'user' => $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array()
 		];
 
@@ -137,15 +137,15 @@ class Invoice extends CI_Controller
 
 	public function print($no_inv)
 	{
-		$inv =  $this->M_Invoice->show($no_inv);
+		$inv =  $this->M_InvoiceMart->show($no_inv);
 		$data = [
-			'title_pdf' => 'Invoice Mlejit Coffee No. ' . $no_inv,
+			'title_pdf' => 'Invoice Mlejit Mart No. ' . $no_inv,
 			'invoice' => $inv,
-			'details' => $this->M_Invoice->item_list($inv['Id']),
+			'details' => $this->M_InvoiceMart->item_list($inv['Id']),
 		];
 
 		// filename dari pdf ketika didownload
-		$file_pdf = 'Invoice Mlejit Coffee No. ' . $no_inv;
+		$file_pdf = 'Invoice Mlejit Mart No. ' . $no_inv;
 
 		// setting paper
 		$paper = 'A4';
@@ -153,7 +153,7 @@ class Invoice extends CI_Controller
 		//orientasi paper potrait / landscape
 		$orientation = "portrait";
 
-		$html = $this->load->view('dashboard/pages/invoice/v_invoice_pdf', $data, true);
+		$html = $this->load->view('dashboard/pages/invoice-mart/v_invoice_pdf', $data, true);
 
 		// run dompdf
 		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
@@ -164,7 +164,7 @@ class Invoice extends CI_Controller
 		$from = $this->input->post('from');
 		$to = $this->input->post('to');
 
-		$invoices = $this->M_Invoice->report($from, $to);
+		$invoices = $this->M_InvoiceMart->report($from, $to);
 
 		if ($invoices) {
 
@@ -260,6 +260,6 @@ class Invoice extends CI_Controller
 			$this->session->set_flashdata('message_error', 'There is no data between ' . $from . ' and ' . $to);
 		}
 
-		redirect("admin/invoice");
+		redirect("admin/invoicemart");
 	}
 }
