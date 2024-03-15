@@ -12,7 +12,7 @@ class M_Invoice extends CI_Model
 
     public function list_invoice()
     {
-        return $this->db->from('invoice a')->join('user b', 'a.created_by = b.Id', 'left')->order_by('no_invoice', 'DESC')->get()->result();
+        return $this->db->from('invoice a')->join('user b', 'a.created_by = b.Id', 'left')->join('customer c', 'a.id_customer = c.id', 'left')->order_by('no_invoice', 'DESC')->get()->result();
     }
 
     public function select_max()
@@ -46,5 +46,25 @@ class M_Invoice extends CI_Model
     public function report($from, $to)
     {
         return $this->db->from('invoice a')->join('customer b', 'a.id_customer = b.id', 'left')->where('tanggal_invoice >=', $from)->where('tanggal_invoice <=', $to)->get()->result();
+    }
+
+    public function delete_detail($id)
+    {
+        return $this->db->where('Id', $id)->delete('invoice_details');
+    }
+
+    public function update_invoice($id_invoice, $data)
+    {
+        return $this->db->where('Id', $id_invoice)->update('invoice', $data);
+    }
+
+    public function get_discount($id)
+    {
+        return $this->db->select('diskon')->where('Id', $id)->get('invoice')->row_array();
+    }
+
+    public function sum_total($id_invoice)
+    {
+        return $this->db->select_sum('total')->where('id_invoice', $id_invoice)->get('invoice_details')->row_array();
     }
 }

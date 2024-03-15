@@ -29,17 +29,107 @@
             ?>
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message_name') ?>"></div>
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Create new invoice</h5>
-                            <form action="<?= base_url('admin/invoice/store') ?>" method="post" class="row g-3">
-                                <div class="col-12">
-                                    <label for="no_invoice" class="form-label">Number</label>
-                                    <input type="text" class="form-control" name="no_invoice">
+                    <form action="<?= base_url('admin/invoice/store/' . $invoice['no_invoice']) ?>" method="post" class="">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Create new invoice</h5>
+                                <div class="row g-2">
+
+                                    <div class="col-3">
+                                        <label for="no_invoice" class="form-label">Number</label>
+                                        <input type="text" class="form-control" name="no_invoice" value="<?= $invoice['no_invoice'] ?>" readonly>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="tgl_invoice" class="form-label">Date</label>
+                                        <input type="date" class="form-control" name="tgl_invoice" value="<?= $invoice['tanggal_invoice'] ?>">
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="customer" class="form-label">Bill to</label>
+                                        <select name="customer" id="customer" class="form-control">
+                                            <?php
+                                            foreach ($customers as $c) : ?>
+                                                <?php
+                                                if ($c->id == $invoice['id_customer']) : ?>
+                                                    <option value="<?= $c->id ?>" selected><?= $c->nama_customer ?></option>
+                                                <?php
+                                                endif; ?>
+                                            <?php
+                                            endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="diskon" class="form-label">Discount</label>
+                                        <select name="diskon" id="diskonEdit" class="form-control">
+                                            <option <?= ($invoice['diskon'] == 0.00) ? "selected" : "" ?> value="0">0%</option>
+                                            <option <?= ($invoice['diskon'] == 0.05) ? "selected" : "" ?> value="0.05">5%</option>
+                                            <option <?= ($invoice['diskon'] == 0.10) ? "selected" : "" ?> value="0.1">10%</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="keterangan" class="form-label">Notes</label>
+                                        <textarea name="keterangan" id="keterangan" cols="30" rows="2" class="form-control" oninput="this.value = this.value.toUpperCase()" placeholder="Enter notes here..." required><?= $invoice['keterangan'] ?></textarea>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="nominal" class="form-label">Subtotal</label>
+                                        <input type="text" class="form-control" name="nominal" id="nominal" value="<?= number_format($invoice['subtotal'], 0, ",", ".") ?>" readonly>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label for="besaran_diskon" class="form-label">Discount</label>
+                                        <input type="text" class="form-control" name="besaran_diskon" id="besaran_diskon" value="<?= number_format($invoice['besaran_diskon'], 0, ",", ".") ?>" readonly>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="grandtotal" class="form-label">Total</label>
+                                        <input type="text" class="form-control" name="grandtotal" id="grandtotal" value="<?= number_format($invoice['total_invoice'], 0, ",", ".") ?>" readonly>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <label for="keterangan" class="form-label">&nbsp;</label>
+                                        <div class="mt-1">
+                                            <a href="<?= base_url('admin/invoice') ?>" class="btn btn-sm btn-warning"><i class="bi bi-arrow-return-left"></i> Back</a>
+                                            <button type="submit" class="btn btn-primary btn-sm">Update <i class="bi bi-save"></i></button>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </form>
+                                <table class="table mt-5">
+                                    <thead>
+                                        <tr>
+                                            <th>Menu</th>
+                                            <th style="width: 100px;">Qty</th>
+                                            <th style="width: 200px;">Price</th>
+                                            <th>Total</th>
+                                            <th>Del.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($details as $d) :
+                                        ?>
+                                            <tr class="baris">
+                                                <td>
+                                                    <input type="text" class="form-control" name="menu" oninput="this.value = this.value.toUpperCase()" value="<?= $d->menu ?>">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="qty" value="<?= $d->qty ?>">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="harga" value="<?= $d->harga ?>">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control total" name="total" value="<?= $d->total ?>" readonly>
+                                                </td>
+                                                <td>
+                                                    <a href="<?= base_url('admin/invoice/delete_row/' . $invoice['Id'] . '/' . $d->Id) ?>" class="btn btn-danger btn-sm btn-delete">Hapus</a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             <?php
             } else {
@@ -102,7 +192,7 @@
                                     </div>
                                     <div class="col-3 text-end">
                                         <label for="keterangan" class="form-label">&nbsp;</label>
-                                        <div class="mt-2">
+                                        <div class="mt-1">
                                             <a href="<?= base_url('admin/invoice') ?>" class="btn btn-sm btn-warning"><i class="bi bi-arrow-return-left"></i> Back</a>
                                             <button type="submit" class="btn btn-primary btn-sm">Save <i class="bi bi-save"></i></button>
                                         </div>
@@ -262,6 +352,11 @@
             updateTotalBelanja(); // Perbarui total belanja setelah menghapus baris
             updateDiscountAndTotal();
         });
+        $(document).on('click', '.hapusBarisEdit', function() {
+            $(this).closest('.baris').remove();
+            updateTotalBelanja(); // Perbarui total belanja setelah menghapus baris
+            updateDiscountAndTotal();
+        });
 
         // Saat opsi diskon berubah
         $('#diskon').on('change', function() {
@@ -278,6 +373,25 @@
                 var totalBaris = parseInt($(this).find('input[name="total[]"]').val().replace(/\./g, '') || 0);
                 subtotal += totalBaris;
             });
+            // Hitung besaran diskon
+            var besaranDiskon = subtotal * diskon;
+            // Hitung total setelah diskon
+            var total = subtotal - besaranDiskon;
+            // Atur nilai input besaran_diskon dan total dengan format angka yang sesuai
+            $('#besaran_diskon').val(formatNumber(besaranDiskon));
+            $('#grandtotal').val(formatNumber(total));
+        }
+
+        $('#diskonEdit').on('change', function() {
+            // Panggil fungsi untuk mengupdate besaran diskon dan total
+            updateDiscountAndTotalEdit();
+        });
+
+        function updateDiscountAndTotalEdit() {
+            var diskon = parseFloat($('#diskonEdit').val());
+
+            var subtotal = parseInt($('#nominal').val().replace(/\./g, '') || 0);
+
             // Hitung besaran diskon
             var besaranDiskon = subtotal * diskon;
             // Hitung total setelah diskon

@@ -45,6 +45,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Num.</th>
                                     <th scope="col">Date</th>
+                                    <th scope="col">Customer</th>
                                     <th scope="col">Total</th>
                                     <th scope="col">User</th>
                                     <th>Print</th>
@@ -59,9 +60,13 @@
                                         <td><?= $no++ ?></td>
                                         <td><?= $i->no_invoice ?></td>
                                         <td><?= format_indo($i->tanggal_invoice) ?></td>
+                                        <td><?= $i->nama_customer ?></td>
                                         <td>Rp<?= number_format($i->total_invoice) ?></td>
                                         <td><?= $i->name ?></td>
                                         <td>
+                                            <a href="<?= base_url('admin/invoice/edit/' . $i->no_invoice) ?>" class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
                                             <a href="<?= base_url('admin/invoice/print/' . $i->no_invoice) ?>" class="btn btn-info btn-sm" target="_blank">
                                                 <i class="bi bi-file-pdf"></i> Print
                                             </a>

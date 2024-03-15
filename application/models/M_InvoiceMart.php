@@ -12,7 +12,7 @@ class M_InvoiceMart extends CI_Model
 
     public function list_invoice()
     {
-        return $this->db->from('invoice_mart a')->join('user b', 'a.created_by = b.Id', 'left')->order_by('no_invoice', 'DESC')->get()->result();
+        return $this->db->from('invoice_mart a')->join('user b', 'a.created_by = b.Id', 'left')->join('customer c', 'a.id_customer = c.id', 'left')->order_by('no_invoice', 'DESC')->get()->result();
     }
 
     public function select_max()
