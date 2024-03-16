@@ -60,3 +60,40 @@ $(".btn-logout").on("click", function (e) {
 		}
 	});
 });
+
+// jquery tolong carikan btn-process yang ketika diklik jalankan fungsi berikut ini
+$(".btn-process").on("click", function (e) {
+	e.preventDefault();
+	const href = $(this).attr("href");
+
+	Swal.fire({
+		title: "Are you sure?",
+		text: "You won't be able to revert this!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Yes, process it!",
+	}).then((result) => {
+		if (result.isConfirmed) {
+			document.location.href = href;
+		}
+	});
+});
+
+$(".btn-confirm").on("click", function (e) {
+	e.preventDefault();
+	const form = $(this).parents("form");
+
+	Swal.fire({
+		title: "Are you sure?",
+		text: "You won't be able to revert this!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Yes, confirm!",
+	}).then((result) => {
+		if (result.isConfirmed) form.submit();
+	});
+});

@@ -95,10 +95,11 @@ class Invoice extends CI_Controller
 			$total_detail = $this->M_Invoice->sum_total($inv['Id']);
 
 			$subtotal = $total_detail['total'];
-			$besaran_diskon = $subtotal * $inv['diskon'];
+			$besaran_diskon = $subtotal * $this->input->post('diskon');
 			$total_invoice = $subtotal - $besaran_diskon;
 
 			$data = [
+				'diskon' => $this->input->post('diskon'),
 				'tanggal_invoice' => $this->input->post('tgl_invoice'),
 				'updated_by' => $id_user,
 				'keterangan' => $this->input->post('keterangan'),
@@ -164,6 +165,44 @@ class Invoice extends CI_Controller
 		];
 
 		$this->load->view('dashboard/index', $data);
+	}
+
+	public function update_item($id_invoice, $id)
+	{
+		$qty = preg_replace('/[^a-zA-Z0-9\']/', '', $this->input->post('qty'));
+		$harga = preg_replace('/[^a-zA-Z0-9\']/', '', $this->input->post('harga'));
+		$total = preg_replace('/[^a-zA-Z0-9\']/', '', $this->input->post('total'));
+
+		$data = [
+			'menu' => trim($this->input->post('menu')),
+			'qty' => $qty,
+			'harga' => $harga,
+			'total' => $total,
+		];
+
+		$this->M_Invoice->update_item($id, $data);
+
+		// update invoice setelah hapus row
+		$diskon = $this->M_Invoice->get_discount($id);
+
+		$total_detail = $this->M_Invoice->sum_total($id_invoice);
+
+		$subtotal = $total_detail['total'];
+		$besaran_diskon = $subtotal * $diskon['diskon'];
+		$total_invoice = $subtotal - $besaran_diskon;
+
+		$data = [
+			'subtotal' => $subtotal,
+			'besaran_diskon' => $besaran_diskon,
+			'total_invoice' => $total_invoice,
+		];
+
+		$this->M_Invoice->update_invoice($id_invoice, $data);
+
+		$this->session->set_flashdata('message_name', 'The invoice has been successfully updated.');
+
+		// After that you need to used redirect function instead of load view such as 
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function delete_row($id_invoice, $id)
@@ -320,11 +359,4 @@ class Invoice extends CI_Controller
 
 		redirect("admin/invoice");
 	}
-
-	// public function update()
-	// {
-	// 	echo '<pre>';
-	// 	print_r($_POST);
-	// 	echo '</pre>';
-	// }
 }

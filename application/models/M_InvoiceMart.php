@@ -47,4 +47,29 @@ class M_InvoiceMart extends CI_Model
     {
         return $this->db->from('invoice_mart a')->join('customer b', 'a.id_customer = b.id', 'left')->where('tanggal_invoice >=', $from)->where('tanggal_invoice <=', $to)->get()->result();
     }
+
+    public function delete_detail($id)
+    {
+        return $this->db->where('Id', $id)->delete('invoice_mart_details');
+    }
+
+    public function update_item($id, $data)
+    {
+        return $this->db->where('Id', $id)->update('invoice_mart_details', $data);
+    }
+
+    public function update_invoice($id_invoice, $data)
+    {
+        return $this->db->where('Id', $id_invoice)->update('invoice_mart', $data);
+    }
+
+    public function get_discount($id)
+    {
+        return $this->db->select('diskon')->where('Id', $id)->get('invoice_mart')->row_array();
+    }
+
+    public function sum_total($id_invoice)
+    {
+        return $this->db->select_sum('total')->where('id_invoice', $id_invoice)->get('invoice_mart_details')->row_array();
+    }
 }

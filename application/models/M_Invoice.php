@@ -53,6 +53,11 @@ class M_Invoice extends CI_Model
         return $this->db->where('Id', $id)->delete('invoice_details');
     }
 
+    public function update_item($id, $data)
+    {
+        return $this->db->where('Id', $id)->update('invoice_details', $data);
+    }
+
     public function update_invoice($id_invoice, $data)
     {
         return $this->db->where('Id', $id_invoice)->update('invoice', $data);

@@ -29,10 +29,10 @@
             ?>
                 <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message_name') ?>"></div>
                 <div class="col-lg-12">
-                    <form action="<?= base_url('admin/invoice/store/' . $invoice['no_invoice']) ?>" method="post" class="">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Create new invoice</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Edit invoice <?= $invoice['no_invoice'] ?></h5>
+                            <form action="<?= base_url('admin/invoice/store/' . $invoice['no_invoice']) ?>" method="post" class="">
                                 <div class="row g-2">
 
                                     <div class="col-3">
@@ -92,21 +92,27 @@
                                     </div>
 
                                 </div>
-                                <table class="table mt-5">
-                                    <thead>
-                                        <tr>
-                                            <th>Menu</th>
-                                            <th style="width: 100px;">Qty</th>
-                                            <th style="width: 200px;">Price</th>
-                                            <th>Total</th>
-                                            <th>Del.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($details as $d) :
-                                        ?>
+                            </form>
+                            <table class="table mt-5">
+                                <thead>
+                                    <tr>
+                                        <th>Delete</th>
+                                        <th>Menu</th>
+                                        <th style="width: 100px;">Qty</th>
+                                        <th style="width: 200px;">Price</th>
+                                        <th>Total</th>
+                                        <th>Upd.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($details as $d) :
+                                    ?>
+                                        <form action="<?= base_url('admin/invoice/update_item/' . $invoice['Id'] . '/' . $d->Id) ?>" method="post">
                                             <tr class="baris">
+                                                <td class="text-center">
+                                                    <a href="<?= base_url('admin/invoice/delete_row/' . $invoice['Id'] . '/' . $d->Id) ?>" class="btn btn-danger btn-sm btn-delete">&times;</a>
+                                                </td>
                                                 <td>
                                                     <input type="text" class="form-control" name="menu" oninput="this.value = this.value.toUpperCase()" value="<?= $d->menu ?>">
                                                 </td>
@@ -114,22 +120,22 @@
                                                     <input type="text" class="form-control" name="qty" value="<?= $d->qty ?>">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="harga" value="<?= $d->harga ?>">
+                                                    <input type="text" class="form-control" name="harga" value="<?= number_format($d->harga, 0, ",", ".") ?>">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control total" name="total" value="<?= $d->total ?>" readonly>
+                                                    <input type="text" class="form-control total" name="total" value="<?= number_format($d->total, 0, ",", ".") ?>" readonly>
                                                 </td>
                                                 <td>
-                                                    <a href="<?= base_url('admin/invoice/delete_row/' . $invoice['Id'] . '/' . $d->Id) ?>" class="btn btn-danger btn-sm btn-delete">Hapus</a>
+                                                    <button type="submit" class="btn btn-primary btn-sm">Perbarui</button>
                                                 </td>
                                             </tr>
-                                        <?php
-                                        endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </form>
+                                    <?php
+                                    endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
-                    </form>
+                    </div>
                 </div>
             <?php
             } else {
@@ -402,5 +408,28 @@
         }
 
 
+        $(document).on('input', 'input[name="qty"], input[name="harga"]', function() {
+            var value = $(this).val();
+            var formattedValue = parseFloat(value.split('.').join(''));
+            $(this).val(formattedValue);
+
+            var row = $(this).closest('.baris');
+            hitungTotalItem(row);
+        });
+
+        function hitungTotalItem(row) {
+            var qty = row.find('input[name="qty"]').val().replace(/\./g, ''); // Hapus tanda titik
+            var harga = row.find('input[name="harga"]').val().replace(/\./g, ''); // Hapus tanda titik
+            qty = parseInt(qty); // Ubah string ke angka float
+            harga = parseInt(harga); // Ubah string ke angka float
+
+            qty = isNaN(qty) ? 0 : qty;
+            harga = isNaN(harga) ? 0 : harga;
+
+            var total = qty * harga;
+            row.find('input[name="harga"]').val(formatNumber(harga));
+            row.find('input[name="total"]').val(formatNumber(total));
+            updateTotalBelanja();
+        }
     });
 </script>
