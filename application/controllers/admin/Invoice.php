@@ -23,6 +23,14 @@ class Invoice extends CI_Controller
 		}
 	}
 
+	private function add_log($action, $record_id, $tableName)
+	{
+		// Dapatkan user ID dari sesi atau sesuai kebutuhan aplikasi Anda
+		$user_id = $this->session->userdata('user_id');
+		// Tambahkan log
+		$this->log_model->add_log($user_id, $action, $tableName, $record_id);
+	}
+
 	public function index()
 	{
 		$data = [
@@ -110,6 +118,7 @@ class Invoice extends CI_Controller
 			];
 
 			$this->M_Invoice->update_invoice($inv['Id'], $data);
+			$this->add_log('update', $inv['Id'], 'invoice');
 
 			$this->session->set_flashdata('message_name', 'The invoice has been successfully updated.');
 
@@ -117,6 +126,7 @@ class Invoice extends CI_Controller
 			redirect($_SERVER['HTTP_REFERER']);
 		} else {
 			$id_invoice = $this->M_Invoice->insert($invoice_data);
+			$this->add_log('create', $id_invoice, 'invoice');
 
 			$detail_data = [];
 
@@ -181,6 +191,7 @@ class Invoice extends CI_Controller
 		];
 
 		$this->M_Invoice->update_item($id, $data);
+		$this->add_log('update', $id, 'invoice_details');
 
 		// update invoice setelah hapus row
 		$diskon = $this->M_Invoice->get_discount($id);
@@ -208,6 +219,8 @@ class Invoice extends CI_Controller
 	public function delete_row($id_invoice, $id)
 	{
 		$this->M_Invoice->delete_detail($id);
+
+		$this->add_log('delete', $id_invoice, 'invoice_details');
 
 		// update invoice setelah hapus row
 		$diskon = $this->M_Invoice->get_discount($id);
