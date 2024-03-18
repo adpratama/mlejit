@@ -26,7 +26,7 @@ class Invoice extends CI_Controller
 	private function add_log($action, $record_id, $tableName)
 	{
 		// Dapatkan user ID dari sesi atau sesuai kebutuhan aplikasi Anda
-		$user_id = $this->session->userdata('user_id');
+		$user_id = $this->session->userdata('id_user');
 		// Tambahkan log
 		$this->log_model->add_log($user_id, $action, $tableName, $record_id);
 	}

@@ -9,7 +9,7 @@ class Invoicemart extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['M_InvoiceMart', 'M_Customer']);
+		$this->load->model(['M_InvoiceMart', 'M_Customer', 'M_Logging']);
 		$this->load->helper(['string', 'url', 'date', 'number']);
 		$this->load->library(['session', 'pagination', 'pdfgenerator', 'PHPExcel']);
 
@@ -26,9 +26,9 @@ class Invoicemart extends CI_Controller
 	private function add_log($action, $record_id, $tableName)
 	{
 		// Dapatkan user ID dari sesi atau sesuai kebutuhan aplikasi Anda
-		$user_id = $this->session->userdata('user_id');
+		$user_id = $this->session->userdata('id_user');
 		// Tambahkan log
-		$this->log_model->add_log($user_id, $action, $tableName, $record_id);
+		$this->M_Logging->add_log($user_id, $action, $tableName, $record_id);
 	}
 
 	public function index()
@@ -148,15 +148,15 @@ class Invoicemart extends CI_Controller
 						'created_by' => $id_user
 					];
 				}
-			}
 
-			if (!empty($detail_data)) {
-				$insert = $this->M_InvoiceMart->insert_batch($detail_data);
+				if (!empty($detail_data)) {
+					$insert = $this->M_InvoiceMart->insert_batch($detail_data);
 
-				if ($insert) {
-					$this->session->set_flashdata('message_name', 'The invoice has been successfully created. ' . $no_inv);
-					// After that you need to used redirect function instead of load view such as 
-					redirect("admin/invoicemart");
+					if ($insert) {
+						$this->session->set_flashdata('message_name', 'The invoice has been successfully created. ' . $no_inv);
+						// After that you need to used redirect function instead of load view such as 
+						redirect("admin/invoicemart");
+					}
 				}
 			}
 		}
