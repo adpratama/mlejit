@@ -146,15 +146,15 @@ class Invoice extends CI_Controller
 						'created_by' => $id_user
 					];
 				}
-			}
 
-			if (!empty($detail_data)) {
-				$insert = $this->M_Invoice->insert_batch($detail_data);
+				if (!empty($detail_data)) {
+					$insert = $this->M_Invoice->insert_batch($detail_data);
 
-				if ($insert) {
-					$this->session->set_flashdata('message_name', 'The invoice has been successfully created. ' . $no_inv);
-					// After that you need to used redirect function instead of load view such as 
-					redirect("admin/invoice");
+					if ($insert) {
+						$this->session->set_flashdata('message_name', 'The invoice has been successfully created. ' . $no_inv);
+						// After that you need to used redirect function instead of load view such as 
+						redirect("admin/invoice");
+					}
 				}
 			}
 		}
@@ -371,5 +371,67 @@ class Invoice extends CI_Controller
 		}
 
 		redirect("admin/invoice");
+	}
+
+	public function add_item($no_inv)
+	{
+		$invoice = $this->M_Invoice->show($no_inv);
+
+		$menus = $this->input->post('newMenu');
+		$qtys = $this->input->post('newQty');
+		$hargas = $this->input->post('newHarga');
+		$totals = $this->input->post('newTotal');
+		$id_user = $this->session->userdata('id_user');
+
+		$id_inv = $invoice['Id'];
+
+		$detail_data = [];
+
+		if (is_array($menus)) {
+			for ($i = 0; $i < count($menus); $i++) {
+				$menu = $menus[$i];
+				$qty = preg_replace('/[^a-zA-Z0-9\']/', '', $qtys[$i]);
+				$harga = preg_replace('/[^a-zA-Z0-9\']/', '', $hargas[$i]);
+				$total = preg_replace('/[^a-zA-Z0-9\']/', '', $totals[$i]);
+
+				$detail_data[] = [
+					'id_invoice' => $id_inv,
+					'menu' => $menu,
+					'qty' => $qty,
+					'harga' => $harga,
+					'total' => $total,
+					'created_by' => $id_user
+				];
+			}
+
+			if (!empty($detail_data)) {
+				$insert = $this->M_Invoice->insert_batch($detail_data);
+
+				if ($insert) {
+					// update invoice setelah hapus row
+					$diskon = $this->M_Invoice->get_discount($id_inv);
+
+					$total_detail = $this->M_Invoice->sum_total($id_inv);
+
+					$subtotal = $total_detail['total'];
+					$besaran_diskon = $subtotal * $diskon['diskon'];
+					$total_invoice = $subtotal - $besaran_diskon;
+
+					$data = [
+						'subtotal' => $subtotal,
+						'besaran_diskon' => $besaran_diskon,
+						'total_invoice' => $total_invoice,
+					];
+
+					$this->M_Invoice->update_invoice($id_inv, $data);
+
+					$this->add_log('update', $id_inv, 'invoice');
+
+					$this->session->set_flashdata('message_name', 'The invoice has been successfully updated. ');
+					// After that you need to used redirect function instead of load view such as 
+					redirect($_SERVER['HTTP_REFERER']);
+				}
+			}
+		}
 	}
 }

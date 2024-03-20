@@ -87,7 +87,7 @@
                                     <div class="col-3 text-end">
                                         <label for="keterangan" class="form-label">&nbsp;</label>
                                         <div class="mt-1">
-                                            <a href="<?= base_url('admin/invoice') ?>" class="btn btn-sm btn-warning"><i class="bi bi-arrow-return-left"></i> Back</a>
+                                            <a href="<?= base_url('admin/invoicemart') ?>" class="btn btn-sm btn-warning text-white"><i class="bi bi-arrow-return-left"></i> Back</a>
                                             <button type="submit" class="btn btn-primary btn-sm">Update <i class="bi bi-save"></i></button>
                                         </div>
                                     </div>
@@ -107,34 +107,100 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($details as $d) :
-                                    ?>
-                                        <form action="<?= base_url('admin/invoicemart/update_item/' . $invoice['Id'] . '/' . $d->Id) ?>" method="post">
-                                            <tr class="baris">
-                                                <td class="text-center">
-                                                    <a href="<?= base_url('admin/invoicemart/delete_row/' . $invoice['Id'] . '/' . $d->Id) ?>" class="btn btn-danger btn-sm btn-delete">&times;</a>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="menu" oninput="this.value = this.value.toUpperCase()" value="<?= $d->menu ?>">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="qty" value="<?= $d->qty ?>">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" name="harga" value="<?= number_format($d->harga, 0, ",", ".") ?>">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control total" name="total" value="<?= number_format($d->total, 0, ",", ".") ?>" readonly>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary btn-sm">Perbarui</button>
-                                                </td>
-                                            </tr>
-                                        </form>
+                                    if ($details) {
+                                        foreach ($details as $d) : ?>
+                                            <form action="<?= base_url('admin/invoicemart/update_item/' . $invoice['Id'] . '/' . $d->Id) ?>" method="post">
+                                                <tr class="baris">
+                                                    <td class="text-center">
+                                                        <a href="<?= base_url('admin/invoicemart/delete_row/' . $invoice['Id'] . '/' . $d->Id) ?>" class="btn btn-danger btn-sm btn-delete">&times;</a>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="menu" oninput="this.value = this.value.toUpperCase()" value="<?= $d->menu ?>">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="qty" value="<?= $d->qty ?>">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="harga" value="<?= number_format($d->harga, 0, ",", ".") ?>">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control total" name="total" value="<?= number_format($d->total, 0, ",", ".") ?>" readonly>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-primary btn-sm">Perbarui</button>
+                                                    </td>
+                                                </tr>
+                                            </form>
+                                        <?php
+                                        endforeach;
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="6">Tidak ada item yang ditampilkan</td>
+                                        </tr>
                                     <?php
-                                    endforeach; ?>
+                                    } ?>
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-lg-12 text-end">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addItem">Add item</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addItem" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add item <?= $invoice['no_invoice'] ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="<?= base_url('admin/invoicemart/add_item/' . $invoice['no_invoice']) ?>" method="POST">
+                                <div class="modal-body">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Menu</th>
+                                                <th style="width: 100px;">Qty</th>
+                                                <th style="width: 200px;">Price</th>
+                                                <th>Total</th>
+                                                <th>Del.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="barisEdit">
+                                                <td>
+                                                    <input type="text" class="form-control" name="newMenu[]" oninput="this.value = this.value.toUpperCase()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="newQty[]" value="0">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="newHarga[]" value="0">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control total" name="newTotal[]" readonly>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-sm hapusRowAddItem">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-lg-12 text-end">
+                                            <button type="button" class="btn btn-secondary btn-sm" id="addNewRow">Add new row</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -444,7 +510,83 @@
             var total = qty * harga;
             row.find('input[name="harga"]').val(formatNumber(harga));
             row.find('input[name="total"]').val(formatNumber(total));
-            updateTotalBelanja();
+        }
+
+        $('#addNewRow').on('click', function() {
+            // Periksa apakah ada input yang kosong di baris sebelumnya
+            var previousRow = $('.barisEdit').last();
+            var inputs = previousRow.find('input[type="text"], input[type="datetime-local"]');
+            var isEmpty = false;
+
+            inputs.each(function() {
+                if ($(this).val().trim() === '') {
+                    isEmpty = true;
+                    return false; // Berhenti iterasi jika ditemukan input kosong
+                }
+            });
+
+            // Jika ada input yang kosong, tampilkan pesan peringatan
+            if (isEmpty) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Mohon isi semua input pada baris sebelumnya terlebih dahulu!',
+                });
+                return; // Hentikan penambahan baris baru
+            }
+
+            // Salin baris terakhir
+            var newRow = previousRow.clone();
+
+            // Kosongkan nilai input di baris baru
+            newRow.find('input').val('');
+            newRow.find('input[name="newQty[]"]').val('0');
+            newRow.find('input[name="newHarga[]"]').val('0');
+
+            // Perbarui tag <h4> pada baris baru dengan nomor urut yang baru
+            rowCount++;
+
+            // Tambahkan baris baru setelah baris terakhir
+            previousRow.after(newRow);
+        });
+
+
+        $(document).on('click', '.hapusRowAddItem', function() {
+            $(this).closest('.barisEdit').remove();
+        });
+
+        $(document).on('input', 'input[name="newQty[]"], input[name="newHarga[]"]', function() {
+            var value = $(this).val();
+            var formattedValue = parseFloat(value.split('.').join(''));
+            $(this).val(formattedValue);
+
+            var row = $(this).closest('.barisEdit');
+            hitungTotalNewItem(row);
+        });
+
+        // Tambahkan event listener untuk event keyup
+        $(document).on('keyup', 'input[name="newQty[]"], input[name="newHarga[]"]', function() {
+            var value = $(this).val().trim(); // Hapus spasi di awal dan akhir nilai
+            var formattedValue = formatNumber(parseFloat(value.split('.').join('')));
+            $(this).val(formattedValue);
+            if (isNaN(value)) { // Jika nilai input kosong
+                $(this).val(''); // Atur nilai input menjadi 0
+            }
+            var row = $(this).closest('.barisEdit');
+            hitungTotalNewItem(row);
+        });
+
+        function hitungTotalNewItem(row) {
+            var qty = row.find('input[name="newQty[]"]').val().replace(/\./g, ''); // Hapus tanda titik
+            var harga = row.find('input[name="newHarga[]"]').val().replace(/\./g, ''); // Hapus tanda titik
+            qty = parseInt(qty); // Ubah string ke angka float
+            harga = parseInt(harga); // Ubah string ke angka float
+
+            qty = isNaN(qty) ? 0 : qty;
+            harga = isNaN(harga) ? 0 : harga;
+
+            var total = qty * harga;
+            row.find('input[name="newTotal[]"]').val(formatNumber(total));
         }
     });
 </script>
