@@ -129,13 +129,13 @@ class Home extends CI_Controller
             $msg_user = "*Infromation*\n\nTerimakasih sudah menghubungi *Mlejit Villa*, Pesanan anda sudah masuk dengan data sebagai berikut:\n\n*No.Transaksi: " . $notrx . "*\n*Nama: " . $nama . "*\nCheckin: " . $this->format_indo($start) . "\nCheckout: " . $this->format_indo($end) . "\n\nAdmin akan segera menghubungi anda. *Mohon untuk tidak membalas pesan ini, Terimakasih.*";
 
             $this->db->insert('villa_transaksi', $data);
-            $this->api_whatsapp->wa_notif($msg_admin, '081990000360');
+            $this->api_whatsapp->wa_notif($msg_admin, '087888000208');
             $this->api_whatsapp->wa_notif($msg_user, $contact);
             $this->session->set_flashdata('success', 'Booking success!');
             redirect('villa/booking');
         }
     }
-    
+
     public function camping()
     {
         $list_camping = $this->db->get('facility_camping')->result();
@@ -149,7 +149,7 @@ class Home extends CI_Controller
 
         $this->load->view('villa/index-2', $data);
     }
-    
+
     public function contact()
     {
         $data = [
