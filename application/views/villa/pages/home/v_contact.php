@@ -57,7 +57,7 @@
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <div class="mt-3">
-                        <span>+62819-9000-0360</span>
+                        <span>+628788-8000-208</span>
                     </div>
                 </div>
                 <h3 class="mt-3">Phone/Whatsapp</h3>
