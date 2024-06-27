@@ -34,9 +34,10 @@
                         <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#reportExcel">
                             Report
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createNewInvoice">
+                        <!-- <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createNewInvoice">
                             Create Invoice
-                        </button>
+                        </button> -->
+                        <a href="<?= base_url('admin/koperasi/add') ?>" class="btn btn-primary btn-sm">Create Invoice</a>
                     </div>
                     <div class="card-body">
                         <table class="table datatable" id="myTable">

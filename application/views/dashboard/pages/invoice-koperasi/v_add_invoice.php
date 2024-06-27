@@ -48,11 +48,7 @@
                                         <select name="customer" id="customer" class="form-control">
                                             <?php
                                             foreach ($customers as $c) : ?>
-                                                <?php
-                                                if ($c->id == $invoice['id_customer']) : ?>
-                                                    <option value="<?= $c->id ?>" selected><?= $c->nama_customer ?></option>
-                                                <?php
-                                                endif; ?>
+                                                <option value="<?= $c->id ?>" selected><?= $c->nama_customer ?></option>
                                             <?php
                                             endforeach; ?>
                                         </select>
@@ -227,11 +223,7 @@
                                         <select name="customer" id="customer" class="form-control">
                                             <?php
                                             foreach ($customers as $c) : ?>
-                                                <?php
-                                                if ($c->id == $customer['id']) : ?>
-                                                    <option value="<?= $c->id ?>" selected><?= $c->nama_customer ?></option>
-                                                <?php
-                                                endif; ?>
+                                                <option value="<?= $c->id ?>" selected><?= $c->nama_customer ?></option>
                                             <?php
                                             endforeach; ?>
                                         </select>
