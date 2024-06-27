@@ -78,7 +78,6 @@
         <strong>Ditujukan kepada :</strong><br>
         <?= $invoice['nama_customer'] ?> <br>
         <?= $invoice['alamat_customer'] ?> <br>
-        <?= $invoice['telepon_customer'] ?>
     </p>
     <h3 style="text-align: center;">INVOICE</h3>
     <table id="table">
@@ -125,7 +124,7 @@
     </table>
 
     <p style="margin-top: 30px;">Keterangan: <br><?= $invoice['keterangan'] ?></p>
-    <p style="margin-top: 100px;">Bank BCA 2060888399 a.n Handayani</p>
+    <p style="margin-top: 100px;">Transfer via BNI IDR 2023250825 a.n Koperasi Jasa Bandes Rekayasa Digital</p>
 </body>
 
 </html>

@@ -249,13 +249,13 @@ class Koperasi extends CI_Controller
 	{
 		$inv =  $this->M_Koperasi->show($no_inv);
 		$data = [
-			'title_pdf' => 'Invoice Mlejit Coffee No. ' . $no_inv,
+			'title_pdf' => 'Invoice Aqua Bandes No. ' . $no_inv,
 			'invoice' => $inv,
 			'details' => $this->M_Koperasi->item_list($inv['Id']),
 		];
 
 		// filename dari pdf ketika didownload
-		$file_pdf = 'Invoice Mlejit Coffee No. ' . $no_inv;
+		$file_pdf = 'Invoice Aqua Bandes No. ' . $no_inv;
 
 		// setting paper
 		$paper = 'A4';
