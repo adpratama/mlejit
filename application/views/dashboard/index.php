@@ -89,53 +89,75 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-heading">Invoice Mlejit Coffee</li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'invoice') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoice">
-                    <i class="bi bi-journal-check"></i>
-                    <span>Invoice</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'customer') echo 'collapsed' ?>" href="<?= base_url() ?>admin/customer">
-                    <i class="bi bi-journal-check"></i>
-                    <span>Customer</span>
-                </a>
-            </li>
-            <li class="nav-heading">Transaction</li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'transaction') echo 'collapsed' ?>" href="<?= base_url() ?>admin/transaction">
-                    <i class="bi bi-journal-check"></i>
-                    <span>Transaction</span>
-                </a>
-            </li>
-            <li class="nav-heading">Products</li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'product') echo 'collapsed' ?>" href="<?= base_url() ?>admin/product">
-                    <i class="bi bi-archive"></i>
-                    <span>Products</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'category') echo 'collapsed' ?>" href="<?= base_url() ?>admin/category">
-                    <i class="bi bi-list-check"></i>
-                    <span>Categories</span>
-                </a>
-            </li>
-            <li class="nav-heading">Invoice Mlejit Mart</li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'invoicemart') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoicemart">
-                    <i class="bi bi-journal-check"></i>
-                    <span>Invoice</span>
-                </a>
-            </li>
-            <li class="nav-heading">Configuration</li>
-            <li class="nav-item">
-                <a class="nav-link <?php if ($this->uri->segment(2) != 'setting') echo 'collapsed' ?>" href="<?= base_url() ?>admin/setting">
-                    <i class="bi bi-archive"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
+            <?php
+            if ($this->session->userdata('role_id') == "3") {
+            ?>
+                <li class="nav-heading">Invoice Koperasi</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'koperasi' && $this->uri->segment(3) == "") echo 'collapsed' ?>" href="<?= base_url() ?>admin/koperasi">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Invoice</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(3) != 'customer') echo 'collapsed' ?>" href="<?= base_url() ?>admin/koperasi/customer">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Customer</span>
+                    </a>
+                </li>
+            <?php
+            } else {
+            ?>
+                <li class="nav-heading">Invoice Mlejit Coffee</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'invoice') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoice">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Invoice</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'customer') echo 'collapsed' ?>" href="<?= base_url() ?>admin/customer">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Customer</span>
+                    </a>
+                </li>
+                <li class="nav-heading">Transaction</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'transaction') echo 'collapsed' ?>" href="<?= base_url() ?>admin/transaction">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Transaction</span>
+                    </a>
+                </li>
+                <li class="nav-heading">Products</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'product') echo 'collapsed' ?>" href="<?= base_url() ?>admin/product">
+                        <i class="bi bi-archive"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'category') echo 'collapsed' ?>" href="<?= base_url() ?>admin/category">
+                        <i class="bi bi-list-check"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li class="nav-heading">Invoice Mlejit Mart</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'invoicemart') echo 'collapsed' ?>" href="<?= base_url() ?>admin/invoicemart">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Invoice</span>
+                    </a>
+                </li>
+                <!-- <li class="nav-heading">Configuration</li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(2) != 'setting') echo 'collapsed' ?>" href="<?= base_url() ?>admin/setting">
+                        <i class="bi bi-archive"></i>
+                        <span>Settings</span>
+                    </a>
+                </li> -->
+            <?php
+            }
+            ?>
 
             <li class="nav-item">
                 <a href="<?= base_url('auth/logout') ?>" class="nav-link btn-logout <?php if ($this->uri->segment(2) != 'logout') echo 'collapsed' ?>">
