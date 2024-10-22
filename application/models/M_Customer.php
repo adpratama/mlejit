@@ -31,6 +31,11 @@ class M_Customer extends CI_Model
         return $this->db->where('slug', $id)->get('customer')->row_array();
     }
 
+    public function getCustomerById($id)
+    {
+        return $this->db->where('id', $id)->get('customer')->row_array();
+    }
+
     public function is_available($id)
     {
         return $this->db->where('slug', $id)->get('customer')->num_rows();

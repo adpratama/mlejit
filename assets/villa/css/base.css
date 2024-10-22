@@ -230,14 +230,15 @@ button:focus {
 }
 
 .section__title {
-	font-size: 10vw;
-	text-transform: lowercase;
+	font-size: 7vw;
+	text-transform: none;
 	margin: 0;
-	letter-spacing: -0.35vw;
+	letter-spacing: 0vw;
 	position: relative;
 	overflow: hidden;
 	text-decoration: none;
 	color: #4f3829;
+	word-spacing: 1vw;
 }
 
 .section__title span {

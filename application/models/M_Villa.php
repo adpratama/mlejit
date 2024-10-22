@@ -7,7 +7,7 @@ class M_Villa extends CI_Model
 
     public function list_villa()
     {
-        $query = $this->db->order_by('name', 'ASC')->get('villa_menu')->result();
+        $query = $this->db->order_by('Id', 'ASC')->get('villa_menu')->result();
         return $query;
     }
 

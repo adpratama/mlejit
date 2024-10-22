@@ -8,7 +8,7 @@
     <meta name="description" content="An implementation of Gil Huybrecht's Outdoors design" />
     <meta name="keywords" content="template, web design, html, javascript, layout, css, slide out" />
     <meta name="author" content="Codrops" />
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" type="image/png" href="<?= base_url() ?>assets/img/logo_mlejit_box.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/villa/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/villa/css/base.css" />
