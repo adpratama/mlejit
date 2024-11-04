@@ -61,7 +61,9 @@
                         <ul>
                             <!-- <li>Halim Perdanakusuma International Airport, Arrivals Terminal</li> -->
                             <li>cs@harints.com</li>
-                            <li>+62819-9000-0360</li>
+                            <li>Whatsapp: <a href="https://wa.me/6287888000208" target="_blank">+62 878 8800 0208</a></li>
+                            <li>Instagram: <a href="https://www.instagram.com/mlejit_villa/" target="_blank">@mlejit_villa</a></li>
+                            <li>TikTok: <a href="https://www.tiktok.com/@mlejit_villa/" target="_blank">@mlejit_villa</a></li>
                         </ul>
                     </div>
                 </div>

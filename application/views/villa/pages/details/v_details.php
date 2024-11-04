@@ -42,7 +42,7 @@
                             <div class="col-lg-6 col-md-6 mb-4 mb-md-5">
                                 <div class="list-box d-flex">
                                     <div class="list-icon">
-                                        <i class="fas fa-shipping-fast"></i>
+                                        <i class="fas fa-home"></i>
                                     </div>
                                     <div class="content">
                                         <h3><?= $f->name ?></h3>
@@ -76,7 +76,7 @@
         </div>
         <div class="row">
             <div class="col-lg-7 text-center">
-                 <a href="<?= base_url('villa/booking/') ?>" class="cart-btn-villa"><i class="fas fa-shopping-cart"></i> Book</a> 
+                <a href="<?= base_url('villa/booking/') ?>" class="cart-btn-villa"><i class="fas fa-shopping-cart"></i> Book</a>
             </div>
         </div>
     </div>
